@@ -1,0 +1,12 @@
+<%= form_for @user, layout: :basic do |f| %>
+  <%= render 'shared/error_messages' %>
+  
+  <%= f.text_field     :fname %>
+  <%= f.text_field     :lname %>
+  <%= f.text_field     :emp_no %>
+  <%= f.email_field    :email %>
+  <%= f.password_field :password %>
+  <%= f.password_field :confirm_password %>  
+  <%= f.submit 'Save!'%> 
+<% end %>
+
