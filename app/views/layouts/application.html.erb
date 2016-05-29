@@ -8,6 +8,14 @@
 </head>
 <body>
 <div class="container">  
+  <p class="muted">
+    <% if logged_in? %>
+      <%= current_user.fname %> 
+      <%= link_to "Log out", logout_path, method: "delete" %>
+    <% else %>
+      <%= link_to "Log in", login_path %>
+    <% end %>  
+  </p>
   <h1><%= link_to "HighGear", '/' %></h1>
   <p>A tool for running better shifts</p>
 
