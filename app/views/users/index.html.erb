@@ -17,10 +17,14 @@
               <td><%= user.lname %></td>
               <td><%= user.emp_no %></td>
               <td><%= user.email %></td>
-              <td><%= link_to icon(:pencil), edit_user_path(user) %></span></td>
-              <td><%= link_to icon(:remove), user, method: :delete, 
-                                   data: { confirm: 'Are you sure?' } %>
-              </td>
+                <% if logged_in? && current_user.admin? %>
+                  <td><%= link_to icon(:pencil), edit_user_path(user) %></span></td>
+                  <% if !current_user %> 
+                    <td><%= link_to icon(:remove), user, method: :delete, 
+                                          data: { confirm: 'Are you sure?' } %>
+                    </td>
+                  <% end %>
+                <% end %>
             </tr>
           <% end %>
         </tbody>
