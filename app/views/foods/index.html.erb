@@ -1,0 +1,18 @@
+<table class="table">  
+  <tr>
+    <th>WRIN</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Type:</th>
+    <th>Created by:</th>
+  </tr>
+    <% @foods.each do |f| %>
+      <tr>
+        <td><%= f.wrin %></td>
+        <td><%= f.name %></td>
+        <td><%= number_to_currency(f.price) %></td>
+        <td><%= f.food_type.titlecase %></td>
+        <td><%= f.user.fname %></td>
+      </tr> 
+    <% end %>
+</table>  

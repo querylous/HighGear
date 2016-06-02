@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529010947) do
+ActiveRecord::Schema.define(version: 20160602011756) do
 
   create_table "foods", force: :cascade do |t|
     t.string   "name"
     t.decimal  "price"
-    t.string   "type"
+    t.string   "food_type"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "wrin"
   end
 
   add_index "foods", ["user_id"], name: "index_foods_on_user_id"
+  add_index "foods", ["wrin"], name: "index_foods_on_wrin"
 
   create_table "users", force: :cascade do |t|
     t.integer  "emp_no"
