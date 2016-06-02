@@ -1,0 +1,2 @@
+module FoodsControllerHelper
+end
