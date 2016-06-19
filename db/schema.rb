@@ -40,10 +40,12 @@ ActiveRecord::Schema.define(version: 20160619211349) do
   create_table "waste_counts", force: :cascade do |t|
     t.integer  "count"
     t.integer  "food_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "waste_counts", ["food_id"], name: "index_waste_counts_on_food_id"
+  add_index "waste_counts", ["user_id"], name: "index_waste_counts_on_user_id"
 
 end
