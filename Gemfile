@@ -16,6 +16,10 @@ gem 'unicorn'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'bh', '~> 1.2'
 gem 'will_paginate', '~> 3.0.6'
+gem 'jquery-ui-rails'
+gem 'money-rails'
+gem 'jeditable-rails'
+
 
 # gem 'capistrano-rails', group: :development
 

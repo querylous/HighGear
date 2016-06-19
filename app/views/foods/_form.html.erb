@@ -1,0 +1,7 @@
+<%= form_for @food, layout: :basic do |f| %>
+  <%= f.text_field :wrin %>
+  <%= f.text_field :name%>
+  <%= f.select(:food_type, [['Raw', 'Raw'], ['Completed', 'Completed']]) %>
+  <%= f.text_field :price%>
+  <%= f.submit 'Add food' %>
+<% end %>

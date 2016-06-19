@@ -1,0 +1,18 @@
+<%= navbar position: :top do %>
+  <%= vertical do %>
+    <%= link_to 'Home', root_path %>
+  <% end %>
+  <%= horizontal do %> 
+    <%= nav class: 'navbar-right' do %> 
+      <%= link_to 'Foods', foods_path %>
+      <% if logged_in? %>
+        <%= link_to current_user.fname, user_path(current_user.id) %> 
+        <%= link_to "Log out", logout_path, method: "delete" %>
+      <% else %>
+        <%= link_to "Log in", login_path %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+  

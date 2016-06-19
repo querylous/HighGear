@@ -1,3 +1,4 @@
+<%= link_to button("New"), new_food_path, class: 'pull-right' %>
 <table class="table">  
   <tr>
     <th>WRIN</th>
@@ -8,11 +9,17 @@
   </tr>
     <% @foods.each do |f| %>
       <tr>
-        <td><%= f.wrin %></td>
-        <td><%= f.name %></td>
-        <td><%= number_to_currency(f.price) %></td>
+        <td><%= editable_field f, :wrin, width: '50' %></td>
+        <td><%= editable_field f, :name, width: '100' %></td>
+        <td><%= editable_field f, :price, width: '50' %></td>
         <td><%= f.food_type.titlecase %></td>
         <td><%= f.user.fname %></td>
+        <% if logged_in? && current_user.admin? %>
+          <td>
+            <%= link_to icon(:remove), f, method: :delete, 
+                                          data: { confirm: 'Are you sure?' } %>
+          </td>
+        <% end %>
       </tr> 
     <% end %>
 </table>  

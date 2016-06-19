@@ -11,6 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery-ui-touch-punch
+//= require jquery-jeditable-mini
 //= require turbolinks
 //= require_tree .

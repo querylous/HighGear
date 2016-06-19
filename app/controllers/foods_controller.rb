@@ -1,10 +1,17 @@
 class FoodsController < ApplicationController
   def new
-    @food = Food.new 
+    if logged_in?
+      @food = Food.new 
+    else
+      flash[:danger] = "Please login first."
+      redirect_to login_url 
+    end
   end
 
   def create
     @food = Food.new(food_params)
+    @food.user_id = current_user.id
+    
     if @food.save
       redirect_to @food
     else
@@ -14,6 +21,17 @@ class FoodsController < ApplicationController
 
   def update
     @food = Food.find(params[:id])
+    respond_to do |format|
+      if @food.update_attributes(food_params)
+        format.html { 
+          if request.xhr?
+             render :text => params[:food].values.first
+          else
+             redirect_to @food, notice: 'Food item Successfully updated.' 
+          end
+        }
+      end
+    end
   end
 
   def edit
@@ -21,6 +39,10 @@ class FoodsController < ApplicationController
 
   def destroy
     Food.find(params[:id])
+    respond_to do |format|
+      format.html { redirect_to foods_url, 
+                    notice: "Food successfullly removed." }
+    end
   end
 
   def show
@@ -34,7 +56,8 @@ class FoodsController < ApplicationController
   private
   
   def food_params
-    params.require(:food).permit(:price, :type, :name)
+    params.require(:food).permit(:price, :type, :name, 
+                                 :food_type, :wrin, :user_id)
   end
 
 end
