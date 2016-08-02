@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by(emp_no: params[:session][:emp_no].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to user
+      redirect_to '/'
     else
       flash.now[:danger] = 'Invalid employee number/password combination'
       render 'new'

@@ -35,10 +35,11 @@ class FoodsController < ApplicationController
   end
 
   def edit
+    @food = Food.find(params[:id])
   end
 
   def destroy
-    Food.find(params[:id])
+    Food.find(params[:id]).destroy
     respond_to do |format|
       format.html { redirect_to foods_url, 
                     notice: "Food successfullly removed." }
@@ -50,7 +51,36 @@ class FoodsController < ApplicationController
   end
 
   def index
+    @today_counts = WasteCount
+      .where(created_at: Time.now.midnight..Time.now)
     @foods = Food.all
+    @breakfast_completed = @foods
+      .where(["food_type = ?", "Breakfast Completed"])
+      .order("sort_order")
+    @breakfast_raw = @foods
+      .where(["food_type = ?", "Breakfast Raw"])
+      .order("sort_order")
+    @lunch_raw = @foods
+      .where(["food_type = ?", "Lunch Raw"])
+      .order("sort_order")
+    @lunch_completed = @foods
+      .where(["food_type = ?", "Lunch Completed"])
+      .order("sort_order")
+  end
+
+  def today_counts
+    @today_counts = WasteCount
+      .where(created_at: Time.now.midnight..Time.now)
+  end
+
+  def sort
+    if request.xhr?  
+      @food = Food.find(params[:id])
+      @food.sort_order = params[:sort_order]
+      @food.save
+      success = { :status => "ok", :message => "Success!" }
+      render :json => success  
+    end
   end
 
   private

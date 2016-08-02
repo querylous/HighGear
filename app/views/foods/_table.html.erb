@@ -1,0 +1,23 @@
+<div class="col-xs-6">
+  <table class="table">
+    <thead>
+      <th><%= table_name %></th>
+      <th>Edit</th>
+      <th>Count</th>
+      <th>Add</th>
+      <th>Total Day</th>
+    </thead>
+    <tbody class="sortable">
+    <% foods.each do |f| %>
+      <tr class="food_item" id="<%= f.id %>" data-sort="<%= f.sort_order %>">
+        <td><%= f.name.titleize %></td>
+        <td><%= link_to icon(:pencil), edit_food_path(f) %></td>
+        <td><input class="food_item_count form-control" type="tel" id="food_item_count_<%= f.id %>"data-product_id="<%= f.id %>" value="0"></input></td>
+        <td><a id="<%= f.id %>" href="#" class="submit_food_item_count glyphicon glyphicon-plus-sign"></a></td>
+        <td><p id="today_count_<%= f.id %>" data-price="<%= f.price %>">0</p></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+

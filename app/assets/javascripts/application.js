@@ -14,7 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery-ui
-//= require jquery-ui-touch-punch
-//= require jquery-jeditable-mini
 //= require turbolinks
+//= require bootstrap-table
 //= require_tree .

@@ -19,6 +19,8 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'jquery-ui-rails'
 gem 'money-rails'
 gem 'jeditable-rails'
+gem 'bootstrap-table-rails'
+gem 'acts_as_list'
 
 
 # gem 'capistrano-rails', group: :development

@@ -1,25 +1,41 @@
+<div id="success-msg" class="bg-success">
+  <p class="text-center">Saved!</p>
+</div>
+
 <%= link_to button("New"), new_food_path, class: 'pull-right' %>
-<table class="table">  
-  <tr>
-    <th>WRIN</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Type:</th>
-    <th>Created by:</th>
-  </tr>
-    <% @foods.each do |f| %>
-      <tr>
-        <td><%= editable_field f, :wrin, width: '50' %></td>
-        <td><%= editable_field f, :name, width: '100' %></td>
-        <td><%= editable_field f, :price, width: '50' %></td>
-        <td><%= f.food_type.titlecase %></td>
-        <td><%= f.user.fname %></td>
-        <% if logged_in? && current_user.admin? %>
-          <td>
-            <%= link_to icon(:remove), f, method: :delete, 
-                                          data: { confirm: 'Are you sure?' } %>
-          </td>
-        <% end %>
-      </tr> 
-    <% end %>
-</table>  
+<a href="#" id="turn_sort_on" class="btn btn-default glyphicon glyphicon-sort pull-right"></a>
+
+<div class="row">
+</div>
+<div class="row">
+  <%= render 'foods/table', foods: @breakfast_raw, table_name: "Breakfast Raw" %>
+  <%= render 'foods/table', foods: @breakfast_completed, table_name: "Breakfast Completed" %>
+</div>
+<div class="row">
+  <%= render 'foods/table', foods: @lunch_raw, table_name: "Lunch Raw" %>
+  <%= render 'foods/table', foods: @lunch_completed, table_name: "Lunch Completed" %>
+</div>
+<div class="row">
+  <div class="text-center">
+    <button id="submit" class="btn btn-default" type="button">Save</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
+  </div>
+</div>
+<script>
+function getTodayCounts() {
+  <% @today_counts.each do |c|  %> 
+    var curr_selector = $('#today_count_' + '<%= c.food_id %>');
+    curr_selector.html('0');
+  <% end %> 
+  <% @today_counts.each do |c|  %> 
+    var count = 0;
+    var curr_selector = $('#today_count_' + '<%= c.food_id %>');
+    count = parseInt( curr_selector.html() );
+    count += parseInt( <%= c.count %> );
+    curr_selector.html(count);
+  <% end %> 
+  console.log('updateTodayCounts called');
+  }
+getTodayCounts();
+</script>

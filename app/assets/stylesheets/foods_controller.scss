@@ -1,3 +1,20 @@
 // Place all the styles related to the FoodsController controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#success-msg {
+  width: 40%;
+  margin: 0 auto;
+  font-size: 1.5em;
+  padding: 20px 0 15px;
+  display: none;
+  position: absolute;
+  top: 15%;
+  left: 30%;
+  border: 1px solid;
+  border-color: #4EA42C;
+  z-index: 2;
+}
+
+#sucess-msg p {
+}
