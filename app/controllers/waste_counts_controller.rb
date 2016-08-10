@@ -9,9 +9,6 @@ class WasteCountsController < ApplicationController
         @waste_count.food_id = item['food_id']
         @waste_count.user_id = item['user_id']
         @waste_count.save 
-        logger.info "#{key}: #{item['id']}"
-##        @waste_count = WasteCount.new  
-##        @waste_count.save
       end
       success = { :status => "ok", :message => "Success!" } 
       render :json => success

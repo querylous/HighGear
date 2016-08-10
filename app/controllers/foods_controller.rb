@@ -13,7 +13,7 @@ class FoodsController < ApplicationController
     @food.user_id = current_user.id
     
     if @food.save
-      redirect_to @food
+      redirect_to foods_url 
     else
       render 'new'
     end
@@ -27,7 +27,7 @@ class FoodsController < ApplicationController
           if request.xhr?
              render :text => params[:food].values.first
           else
-             redirect_to @food, notice: 'Food item Successfully updated.' 
+             redirect_to foods_url, notice: 'Food item Successfully updated.' 
           end
         }
       end
@@ -52,7 +52,9 @@ class FoodsController < ApplicationController
 
   def index
     @today_counts = WasteCount
-      .where(created_at: Time.now.midnight..Time.now)
+      .where(created_at: (Time.parse("04:00"))..Time.now)
+    @week_counts = WasteCount
+      .where(created_at: (Time.now - 7.days)..Time.now)
     @foods = Food.all
     @breakfast_completed = @foods
       .where(["food_type = ?", "Breakfast Completed"])

@@ -1,4 +1,8 @@
 <div class="container">
+  <div class="row">
+    <%= link_to 'New', new_user_path, class: 'pull-right btn btn-default' %> 
+    <br>
+  </div>
   <div class="row"
     <div class="col-sm-8">
       <table class="table">
@@ -7,6 +11,7 @@
           <th>Last Name</th>
           <th>Employee #</th>
           <th>Email</th>
+          <th>Store Number</th>
           <th><%= icon :pencil %></th>
           <th><%= icon :remove %></th>
         </tr> 
@@ -17,6 +22,7 @@
               <td><%= user.lname %></td>
               <td><%= user.emp_no %></td>
               <td><%= user.email %></td>
+              <td><%= user.store_number %></td>
                 <% if logged_in? && current_user.admin? %>
                   <td><%= link_to icon(:pencil), edit_user_path(user) %></span></td>
                   <% if !current_user %> 

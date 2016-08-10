@@ -13,8 +13,7 @@
 <body>
 <%= render "layouts/nav" %>
 <div class="container">  
-  <h1><%= link_to "HighGear", '/' %></h1>
-  <p>A tool for running better shifts</p>
+  <%= render "shared/flash_messages" %>
   <%= yield %>
 </div>
 </body>

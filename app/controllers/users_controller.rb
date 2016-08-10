@@ -3,7 +3,11 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
 
   def new
-    @user = User.new 
+    if is_admin?(current_user) 
+      @user = User.new 
+    else
+      redirect_to root_url, notice: "Sorry, you have to be an admin." 
+    end
   end
 
   def create
@@ -63,7 +67,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:emp_no, :fname, :lname, 
+    params.require(:user).permit(:emp_no, :fname, :lname, :store_number,
                                  :password, :password_confirmation, :email)
   end
 end

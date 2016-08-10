@@ -1,4 +1,6 @@
-$( document ).ready(function() {
+
+var ready;
+ready = function() {
   function sortOrder(){
     var food_item = ""
 
@@ -16,9 +18,10 @@ $( document ).ready(function() {
       var id = $(this).attr("id");
       var sort_order = $(this).attr("data-sort");
       food_item = "id: " + id +", sort_order: " + sort_order; 
-    updateOrder(id, sort_order); 
+      updateOrder(id, sort_order); 
     }) 
   };
+
   $('.sortable').sortable();
   $('.sortable').sortable('disable');
   $(document).on('click', '#turn_sort_on', function(){
@@ -31,4 +34,7 @@ $( document ).ready(function() {
     $('.sortable').sortable('disable') 
     $(this).attr('id', 'turn_sort_on').removeClass('btn-primary');
   });
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
