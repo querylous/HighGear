@@ -1,0 +1,32 @@
+<%
+  total_waste_counts = [] 
+  unique_food_ids = @results.uniq.pluck(:food_id)
+  unique_food_ids.each do |u|
+    count = @results.where(food_id: u).sum('count')
+    cost_per_item = Food.find_by_id(u).price
+    total_waste_counts << { food_id: u, total_cost: count * cost_per_item, total_count: count }
+  end
+  total_waste_counts.sort_by! { |k| k[:total_cost]}
+  total_waste_counts.reverse!
+%>
+<div class="col-xs-2"></div>
+<div class="col-xs-8">
+  <table class="table">
+    <thead>
+      <th>Product</th>
+      <th>Total Count</th>
+      <th>Total Cost<th> 
+    </thead>
+    <tbody>
+      <% total_waste_counts.each do |wc| %>
+        <tr>
+          <td><%= Food.find_by_id(wc[:food_id]).name.titleize %></td>
+          <td><%= wc[:total_count] %></td>
+          <td><%= money_without_cents_and_with_symbol(wc[:total_cost]) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="col-xs-2"></div>
+
