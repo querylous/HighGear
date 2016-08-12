@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post   'foods/sort' => 'foods#sort'
   post   'waste_counts/new' => 'waste_counts#new'
   get    'foods/today_counts' => 'foods#today'
+  get    'foods/search' => 'foods#search'
   resources :users
   resources :foods
   resources :waste_counts

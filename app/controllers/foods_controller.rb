@@ -51,11 +51,11 @@ class FoodsController < ApplicationController
   end
 
   def index
+    @foods = Food.all
     @today_counts = WasteCount
       .where(created_at: (Time.parse("04:00"))..Time.now)
     @week_counts = WasteCount
       .where(created_at: (Time.now - 7.days)..Time.now)
-    @foods = Food.all
     @breakfast_completed = @foods
       .where(["food_type = ?", "Breakfast Completed"])
       .order("sort_order")
@@ -82,6 +82,27 @@ class FoodsController < ApplicationController
       @food.save
       success = { :status => "ok", :message => "Success!" }
       render :json => success  
+    end
+  end
+
+  def search
+    if params[:start_date][0].blank? || params[:end_date][0].blank?
+      redirect_to foods_path
+      flash[:error] = "We needs both dates entered, please."
+    else
+      start_date = Time.parse(params[:start_date].to_s)
+      end_date = Time.parse(params[:end_date].to_s)
+      user_id = params[:user_id][0].to_i
+      @results = WasteCount.where(created_at: start_date..end_date, user_id: user_id)
+      unless @results.blank?
+        respond_to do |format|
+          format.html { return @results }
+          format.json { render json: @results }
+        end
+      else
+      redirect_to foods_path
+      flash[:notice] = "No counts between the selected time frame." 
+      end
     end
   end
 
