@@ -1,5 +1,5 @@
 class Food < ActiveRecord::Base
-  has_many :waste_counts
+  has_many :waste_counts, :dependent => :destroy
   belongs_to :user
   monetize :price,
            :numericality => {

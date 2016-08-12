@@ -22,7 +22,7 @@
     <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
   </div>
 </div>
-<div class="row">
+<div class="row separator">
 </div>
 <div class="row">
   <div class="col-xs-4">
@@ -45,11 +45,12 @@
   <div class="col-xs-4">
     <h3>Search</h3>
     <%= form_tag(foods_search_path, :method => "get", id: "search-form", class: "form form-group") do %>
-      <%= label_tag 'start_date', 'Start Date', class: 'form-group' %>
+      <%= label_tag 'start_date', 'Start Date' %>
       <%= date_field :start_date, nil, :minute_step => 15, class: 'form-control' %>
-      <%= label'end_date', 'End Date', class: 'form-group' %>
+      <%= label 'end_date', 'End Date' %>
       <%= date_field :end_date, nil, :minute_step => 15, class: 'form-control' %>
-        <%= collection_select(:user_id, nil, User.all, :id, :fname) %>
+      <%= label 'user_id', 'User' %>
+      <%= collection_select(:user_id, nil, User.all, :id, :fname, {include_blank: "Any User"}, {class: 'form-control'}) %>
       <%= submit_tag "Search", class: 'btn btn-default' %>
     <% end %>
   </div>
@@ -80,7 +81,7 @@ function getWeekCounts(){
       dollars = hash.values.join
       user = User.find_by_id(id)
   %>
-    $('#week_counts_body').append('<tr><td><%= user.fname %></td><td class="weekly_dollars" width="100"><%= humanized_money_with_symbol(dollars) %></td></tr>');
+    $('#week_counts_body').append('<tr><td><%= user.fname %></td><td class="weekly_dollars" width="100"><%= money_without_cents_and_with_symbol(dollars) %></td></tr>');
   $('.weekly_dollars').each( function(){
     if( <%= dollars %> > 50 ){
       $(this).addClass('danger')
@@ -99,7 +100,7 @@ function getYesterdayTopCounts(){
       dollars = hash.values.join
       food = Food.find_by_id(id)
   %>
-    $('#top_yesterday_waste_body').append('<tr><td><%= food.name %></td><td class="yesterday_top_waste" width="100"><%= humanized_money_with_symbol(dollars) %></td></tr>');
+    $('#top_yesterday_waste_body').append('<tr><td><%= food.name.titleize %></td><td class="yesterday_top_waste" width="100"><%= money_without_cents_and_with_symbol(dollars) %></td></tr>');
   $('.weekly_dollars').each( function(){
     if( <%= dollars %> > 50 ){
       $(this).addClass('danger')

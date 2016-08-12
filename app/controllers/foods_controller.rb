@@ -93,7 +93,11 @@ class FoodsController < ApplicationController
       start_date = Time.parse(params[:start_date].to_s)
       end_date = Time.parse(params[:end_date].to_s)
       user_id = params[:user_id][0].to_i
-      @results = WasteCount.where(created_at: start_date..end_date, user_id: user_id)
+      if user_id != 0 
+        @results = WasteCount.where(created_at: start_date..end_date, user_id: user_id)
+      else
+        @results = WasteCount.where(created_at: start_date..end_date)
+      end
       unless @results.blank?
         respond_to do |format|
           format.html { return @results }
