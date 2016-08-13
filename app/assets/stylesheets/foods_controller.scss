@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$red: #cc0000;
+$dark-red: #800000;
+
 #success-msg {
   width: 40%;
   margin: 0 auto;
@@ -22,3 +25,22 @@
 .separator {
   height: 80px;
 }
+
+.glyphicon-remove {
+  color: $red;
+}
+
+.glyphicon-remove a {
+  color: $red;
+}
+
+a:hover > .glyphicon-remove {
+  color: $dark-red;
+}
+
+a:hover > .glyphicon-remove {
+  color: $dark-red;
+}
+
+
+

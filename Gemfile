@@ -21,7 +21,7 @@ gem 'money-rails'
 gem 'jeditable-rails'
 gem 'bootstrap-table-rails'
 gem 'acts_as_list'
-
+gem 'smarter_csv'
 
 # gem 'capistrano-rails', group: :development
 

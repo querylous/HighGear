@@ -4,6 +4,10 @@
       <%= render 'form' %> 
     </div>
     <div class="col-sm-4">
+    <%= form_tag foods_upload_path, multipart: true do %>
+      <%= file_field_tag :file, class: 'btn btn-default btn-file' %>
+      <%= submit_tag 'Upload CSV', class: 'btn btn-default' %>
+    <% end %>
     </div>
   </div>
 </div>

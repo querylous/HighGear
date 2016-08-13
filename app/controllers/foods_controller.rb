@@ -110,6 +110,23 @@ class FoodsController < ApplicationController
     end
   end
 
+  def upload
+    if logged_in?
+      file = params[:file]
+      options = {}
+      n = SmarterCSV.process(file.tempfile, options) do |array|
+        # we're passing a block in, to process each resulting hash / =row (the block takes array of hashes)
+        #       # when chunking is not enabled, there is only one hash in each array
+        Food.create( array.first )
+      end
+    redirect_to foods_path
+    flash[:success] = "Successfully uploaded!"
+    else
+      flash[:danger] = "Please login first."
+      redirect_to login_url
+    end
+  end
+
   private
   
   def food_params
