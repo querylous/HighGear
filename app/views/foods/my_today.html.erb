@@ -1,0 +1,30 @@
+<div class="col-xs-6">
+
+<table class="table">
+  <thead>
+    <th>Product Name</th>
+    <th>Count</th>
+    <th>Cost</th>
+    <th>Edit</th>
+  <thead>
+  <tbody>
+    <% @my_today.each do |mt| %> 
+    <% food_item = Food.find_by_id(mt.food_id) %>
+      <tr>
+        <td><%= food_item.name %></td>
+        <td><%= mt.count %></td>
+        <td><%= money_without_cents_and_with_symbol(
+                food_item.price * mt.count) %>
+        </td>
+        <td><%= link_to icon(:remove), mt, 
+                method: :delete, data: {confirm: "Are you sure?"} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+<div class="col-xs-6">
+</div>
