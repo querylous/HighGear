@@ -22,7 +22,9 @@ class WasteCountsController < ApplicationController
   def update
   end
 
-  def destroy 
+  def destroy
+    WasteCount.find(params[:id]).destroy
+    redirect_to foods_my_today_path, notice: "Count removed."
   end
 
   def show

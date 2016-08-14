@@ -2,8 +2,9 @@
   <p class="text-center">Saved!</p>
 </div>
 <div class="row">
-  <%= link_to button("New"), new_food_path, class: 'pull-right' %>
-  <a href="#" id="turn_sort_on" class="btn btn-default glyphicon glyphicon-sort pull-right"></a>
+  <%= link_to button("New Food"), new_food_path, class: 'pull-right' %>
+  <%= link_to button("My Counts Today"), foods_my_today_path, class: 'pull-right' %>
+  <%= link_to button(icon(:sort)), '#', {class: 'pull-right', id: 'turn_sort_on'} %>
 </div>
 <div class="row">
 </div>

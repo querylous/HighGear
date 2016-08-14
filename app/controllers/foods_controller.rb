@@ -127,6 +127,13 @@ class FoodsController < ApplicationController
     end
   end
 
+  def my_today 
+    @my_today = WasteCount
+      .where(created_at: (Time.now.midnight + 3.hours)..Time.now, 
+             user_id: current_user.id)
+      .order(food_id: :asc)
+  end
+
   private
   
   def food_params

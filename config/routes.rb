@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post   'waste_counts/new' => 'waste_counts#new'
   get    'foods/today_counts' => 'foods#today'
   get    'foods/search' => 'foods#search'
+  get    'foods/my_today' => 'foods#my_today'
   resources :users
   resources :foods
   resources :waste_counts

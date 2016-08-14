@@ -41,7 +41,7 @@ ready = function() {
     $('#food_item_count_' + id).val( count );
   });
 
-  $(document).on('click', '#submit', function() {
+  $('#submit').click( function() {
     var submit_data = { waste_counts:[] };
     $('.food_item_count').each(function() {
       var food_id = $(this).attr('data-product_id');
