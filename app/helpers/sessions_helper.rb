@@ -16,7 +16,11 @@ module SessionsHelper
   end
 
   def is_admin?(user)
-    user.admin === true 
+    if logged_in?  
+      user.admin === true 
+    else
+      redirect_to login_path, notice: "You need to login first."
+    end
   end
  
   def log_out

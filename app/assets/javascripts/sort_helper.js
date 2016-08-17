@@ -25,14 +25,16 @@ ready = function() {
   $('.sortable').sortable();
   $('.sortable').sortable('disable');
   $(document).on('click', '#turn_sort_on', function(){
-    $(this).attr('id', 'turn_sort_off').addClass('btn-primary');
+    $(this).attr('id', 'turn_sort_off');
+    $(this).find('button').addClass('btn-primary');
     $('.sortable').sortable('enable',{
       stop: function(event,ui){ sortOrder()  }
     });
   });
   $(document).on('click', '#turn_sort_off', function(){
-    $('.sortable').sortable('disable') 
-    $(this).attr('id', 'turn_sort_on').removeClass('btn-primary');
+    $('.sortable').sortable('disable');
+    $(this).attr('id', 'turn_sort_on');
+    $(this).find('button').removeClass('btn-primary');
   });
 };
 

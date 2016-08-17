@@ -2,7 +2,9 @@
   <p class="text-center">Saved!</p>
 </div>
 <div class="row">
-  <%= link_to button("New Food"), new_food_path, class: 'pull-right' %>
+  <% if current_user.admin? %>
+    <%= link_to button("New Food"), new_food_path, class: 'pull-right' %>
+  <% end %>
   <%= link_to button("My Counts Today"), foods_my_today_path, class: 'pull-right' %>
   <%= link_to button(icon(:sort)), '#', {class: 'pull-right', id: 'turn_sort_on'} %>
 </div>
@@ -26,13 +28,13 @@
 <div class="row separator">
 </div>
 <div class="row">
-  <div class="col-xs-4">
+  <div class="col-sm-4">
     <h3 class="text-center">Weekly Leaderboard</h3>
     <table id="week_counts" class="table">
       <thead> <th>Name</th> <th>Total Cost/Week</th> </thead> <tbody id="week_counts_body"> </tbody>
     </table>
   </div>
-  <div class="col-xs-4">
+  <div class="col-sm-4">
     <h3 class="text-center">Yesterday's Top Waste</h3>
     <table id="top_yesterday_waste" class="table">
       <thead>
@@ -43,7 +45,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-xs-4">
+  <div class="col-sm-4">
     <h3>Search</h3>
     <%= form_tag(foods_search_path, :method => "get", id: "search-form", class: "form form-group") do %>
       <%= label_tag 'start_date', 'Start Date' %>

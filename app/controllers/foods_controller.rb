@@ -132,6 +132,9 @@ class FoodsController < ApplicationController
       .where(created_at: (Time.now.midnight + 3.hours)..Time.now, 
              user_id: current_user.id)
       .order(food_id: :asc)
+    if @my_today.blank?
+      redirect_to foods_path, notice: "How about you count waste first?"
+    end
   end
 
   private
