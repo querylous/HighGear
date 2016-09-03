@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  skip_before_action :login_first
+
+
   def new
     render 'new'
   end

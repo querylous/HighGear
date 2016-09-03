@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
             numericality: { only_integer: true }
   validates :store_number, presence: true, length: { minimum: 3, maximum: 5 },
             numericality: { only_integer: true }
-  validates :password, presence: true, length: {maximum: 4 },
+  validates :password, presence: true, length: {maximum: 6 },
             numericality: { only_integer: true }
 end

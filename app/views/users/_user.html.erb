@@ -1,3 +1,4 @@
-<h2><%= @user.fname %>&nbsp;<%= @user.lname %></h2>
+<h2><%= @user.fname %>&nbsp;<%= @user.lname %></h2>&nbsp;<%= link_to icon(:pencil), edit_user_path(@user) %>
 <p><%= @user.emp_no %></p>
 <p><%= @user.email %></p>
+
