@@ -36,3 +36,8 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+  gem 'puma'
+  gem 'thin'
+end
+
