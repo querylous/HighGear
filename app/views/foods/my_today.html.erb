@@ -13,7 +13,7 @@
       <tr>
         <td><%= food_item.name %></td>
         <td><%= mt.count %></td>
-        <td><%= money_without_cents_and_with_symbol(
+        <td><%= humanized_money_with_symbol(
                 food_item.price * mt.count) %>
         </td>
         <td><%= link_to icon(:remove), mt, 

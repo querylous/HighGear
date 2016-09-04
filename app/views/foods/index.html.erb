@@ -84,7 +84,7 @@ function getWeekCounts(){
       dollars = hash.values.join
       user = User.find_by_id(id)
   %>
-    $('#week_counts_body').append('<tr><td><%= user.fname %></td><td class="weekly_dollars" width="100"><%= money_without_cents_and_with_symbol(dollars) %></td></tr>');
+    $('#week_counts_body').append('<tr><td><%= user.fname %></td><td class="weekly_dollars" width="100"><%= humanized_money_with_symbol(dollars) %></td></tr>');
   $('.weekly_dollars').each( function(){
     if( <%= dollars %> > 50 ){
       $(this).addClass('danger')
@@ -103,7 +103,7 @@ function getYesterdayTopCounts(){
       dollars = hash.values.join
       food = Food.find_by_id(id)
   %>
-    $('#top_yesterday_waste_body').append('<tr><td><%= food.name.titleize %></td><td class="yesterday_top_waste" width="100"><%= money_without_cents_and_with_symbol(dollars) %></td></tr>');
+    $('#top_yesterday_waste_body').append('<tr><td><%= food.name.titleize %></td><td class="yesterday_top_waste" width="100"><%= humanized_money_with_symbol(dollars) %></td></tr>');
   $('.weekly_dollars').each( function(){
     if( <%= dollars %> > 50 ){
       $(this).addClass('danger')

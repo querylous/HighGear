@@ -9,7 +9,7 @@
       <tr>
         <td><%= @food.wrin %></td>
         <td><%= @food.name %></td>
-        <td><%= number_to_currency(@food.price) %></td>
+        <td><%= humanized_money_with_symbol(@food.price) %></td>
         <td><%= @food.food_type.titlecase %></td>
         <td><%= @food.user.fname %></td>
       </tr>
