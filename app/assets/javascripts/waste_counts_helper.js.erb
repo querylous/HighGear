@@ -46,9 +46,10 @@ ready = function() {
     event.stopImmediatePropagation();
     event.preventDefault();
     var id = $(this).attr('id');
-    var count = parseInt ( $('#food_item_count_' + id).val() ) + 1;
+    var count = parseInt( $('#food_item_count_' + id).val() ) + 1;
     $('#food_item_count_' + id).val( count );
-    var cost = $('#today_cost_' + id).val() + (parseFloat( $('#today_cost_' + id).attr('data-price') ) * count);
+    var price = parseFloat( $('#today_cost_' + id).attr('data-price') );
+    var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
     $('#today_cost_' + id).html(formatCurrency(cost));
   });
 
