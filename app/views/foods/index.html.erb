@@ -65,13 +65,15 @@ function getTodayCounts() {
     curr_selector.html('0');
   <% end %> 
   <% @today_counts.each do |c|  %> 
+    var costSelector = $('#today_cost_' + '<%= c.food_id %>');
+    var currCost = parseFloat( costSelector.attr('data-price') );
     var count = 0;
-    var curr_selector = $('#today_count_' + '<%= c.food_id %>');
-    count = parseInt( curr_selector.html() );
+    var currSelector = $('#today_count_' + '<%= c.food_id %>');
+    count = parseInt( currSelector.html() );
     count += parseInt( <%= c.count %> );
-    curr_selector.html(count);
+    currSelector.html(count);
+    costSelector.html( formatCurrency(count * currCost) );
   <% end %> 
-  console.log('updateTodayCounts called');
   }
 getTodayCounts();
 

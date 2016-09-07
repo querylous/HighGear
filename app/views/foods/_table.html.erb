@@ -6,6 +6,7 @@
       <th>Count</th>
       <th>Add</th>
       <th>Total Day</th>
+      <th>Total Cost</th>
     </thead>
     <tbody class="sortable">
     <% foods.each do |f| %>
@@ -23,7 +24,8 @@
               data-product_id="<%= f.id %>" value="0"></input></td>
         <td><a id="<%= f.id %>" href="#" class="submit_food_item_count 
               glyphicon glyphicon-plus-sign"></a></td>
-        <td><p id="today_count_<%= f.id %>" data-price="<%= f.price %>">0</p></td>
+        <td><p id="today_count_<%= f.id %>">0</p></td>
+        <td><p id="today_cost_<%=f.id %>" data-price="<%= humanized_money(f.price) %>">0</p>
       </tr>
     <% end %>
     </tbody>

@@ -1,3 +1,12 @@
+function formatCurrency(total) {
+    var neg = false;
+    if(total < 0) {
+        neg = true;
+        total = Math.abs(total);
+    }
+    return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+}
+
 function clearCounts() {
   $('.food_item_count').each(function(){
     $(this).val("0");
@@ -39,6 +48,8 @@ ready = function() {
     var id = $(this).attr('id');
     var count = parseInt ( $('#food_item_count_' + id).val() ) + 1;
     $('#food_item_count_' + id).val( count );
+    var cost = $('#today_cost_' + id).val() + (parseFloat( $('#today_cost_' + id).attr('data-price') ) * count);
+    $('#today_cost_' + id).html(formatCurrency(cost));
   });
 
   $('#submit').click( function() {
