@@ -34,6 +34,6 @@ module FoodsControllerHelper
       top_yesterday_waste << { u => count * cost_per_item }
     end 
     top_yesterday_waste.sort_by! { |y| y.values }
-    return top_yesterday_waste.reverse
+    return top_yesterday_waste.reverse[0..9]
   end
 end

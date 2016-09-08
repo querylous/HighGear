@@ -9,12 +9,15 @@
   <%= link_to button(icon(:sort)), '#', {class: 'pull-right', id: 'turn_sort_on'} %>
 </div>
 <div class="row">
+  <span id="today_total_cost" class="alert alert-success h4 pull-right">0</span>
+  <span class="alert h4 pull-right">Today's Total:&nbsp;</span>
+</div>
+<div class="row">
    <div class="text-center">
     <button class="submit btn btn-default" type="button">Save</button>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
   </div>
-
 </div>
 <div class="row">
   <%= render 'foods/table', foods: @breakfast_raw, table_name: "Breakfast Raw" %>

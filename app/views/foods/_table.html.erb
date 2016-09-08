@@ -1,16 +1,22 @@
 <div class="col-sm-6">
   <table class="table">
     <thead>
+      <% if ["Breakfast Raw", "Lunch Raw"].include? table_name %>
+        <th>WRIN</th>
+      <% end %>
       <th width="175px"><%= table_name %></th>
       <th>Edit</th>
       <th>Count</th>
       <th>Add</th>
-      <th>Total Day</th>
+      <th width="60px">Total Day</th>
       <th>Total Cost</th>
     </thead>
     <tbody class="sortable">
     <% foods.each do |f| %>
       <tr class="food_item" id="<%= f.id %>" data-sort="<%= f.sort_order %>">
+        <% if ["Breakfast Raw", "Lunch Raw"].include? table_name %>
+          <td><%= f.wrin %></td>
+        <% end %>       
         <td><%= f.name.titleize %></td>
         <td>
           <%= link_to icon(:pencil), edit_food_path(f) %>
@@ -25,7 +31,7 @@
         <td><a id="<%= f.id %>" href="#" class="submit_food_item_count 
               glyphicon glyphicon-plus-sign"></a></td>
         <td><p id="today_count_<%= f.id %>">0</p></td>
-        <td><p id="today_cost_<%=f.id %>" data-price="<%= humanized_money(f.price) %>">0</p>
+        <td><p id="today_cost_<%=f.id %>" class="today_cost" data-price="<%= humanized_money(f.price) %>">0</p>
       </tr>
     <% end %>
     </tbody>

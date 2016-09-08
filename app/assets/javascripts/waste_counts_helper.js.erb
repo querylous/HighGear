@@ -22,6 +22,19 @@ function updateTodayCounts(){
   })
 }
 
+function updateTodayTotals(){
+  var todayTotal = 0;
+  $('.today_cost').each(function(){
+    todayTotal += parseFloat( $(this).html().replace(/\$/g, '') );
+  });
+  if ( todayTotal > 50 && todayTotal < 75 ){ 
+    $('#today_total_cost').removeClass('alert-success').addClass('alert-warning');
+  } else if ( todayTotal >= 75 ){
+    $('#today_total_cost').removeClass('alert-warning').addClass('alert-danger');
+  }
+  $('#today_total_cost').html(formatCurrency(todayTotal));
+};
+
 function showSuccessMessage(){
   $('#success-msg').slideDown().delay( 500 ).slideUp();
 }
@@ -36,12 +49,16 @@ function submitWasteCount( submit_data ){
       updateTodayCounts();
       clearCounts();
       showSuccessMessage();
+      updateTodayTotals();
     }
   });
 };
 
 var ready;
 ready = function() {
+
+  updateTodayTotals();
+
   $(document).on('click', '.submit_food_item_count', function(event){
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -52,6 +69,17 @@ ready = function() {
     var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
     $('#today_cost_' + id).html(formatCurrency(cost));
   });
+
+  $(document).on('keyup', '.food_item_count', function(event){
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    var id = $(this).attr('data-product_id')
+    var count = $(this).val();
+    var price = parseFloat( $('#today_cost_' + id).attr('data-price') );
+    var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
+    $('#today_cost_' + id).html(formatCurrency(cost));
+  });
+
 
   $('.submit').click( function() {
     var submit_data = { waste_counts:[] };
