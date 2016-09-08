@@ -28,8 +28,9 @@ ready = function() {
     $(this).attr('id', 'turn_sort_off');
     $(this).find('button').addClass('btn-primary');
     $('.sortable').sortable('enable',{
-      stop: function(event,ui){ sortOrder()  }
+      stop: function(event,ui){ }
     });
+    $('.sortable').on('sortstop', function(event,ui){ sortOrder() })
   });
   $(document).on('click', '#turn_sort_off', function(){
     $('.sortable').sortable('disable');
