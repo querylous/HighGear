@@ -20,10 +20,6 @@
         <td><%= f.name.titleize %></td>
         <td>
           <%= link_to icon(:pencil), edit_food_path(f) %>
-          <% if current_user.admin? %>
-            <%= link_to icon(:remove), f, method: :delete, 
-                data: {confirm: "Are you sure?"} %>
-          <% end %>
         </td>
         <td><input class="food_item_count form-control" 
               type="tel" id="food_item_count_<%= f.id %>" 

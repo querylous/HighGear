@@ -1,7 +1,13 @@
 <%= form_for @food, layout: :basic do |f| %>
   <%= f.text_field :wrin %>
   <%= f.text_field :name%>
+ 
   <%= f.select(:food_type, [['Breakfast Raw', 'Breakfast Raw'], ['Breakfast Completed', 'Breakfast Completed'], ['Lunch Raw', 'Lunch Raw'], ['Lunch Completed', 'Lunch Completed']]) %>
   <%= f.text_field :price%>
   <%= f.submit 'Save' %>
+  <% if current_user.admin? %>
+     <%= link_to button 'Delete', @food, method: :delete, 
+       data: {confirm: "Are you sure?"}, context: :danger, class: 'pull-right' %>
+     <% end %>
+
 <% end %>

@@ -11,7 +11,7 @@ class FoodsController < ApplicationController
   def create
     @food = Food.new(food_params)
     @food.user_id = current_user.id
-    
+    @food.sort_order = 0
     if @food.save
       redirect_to foods_url 
     else
@@ -141,7 +141,7 @@ class FoodsController < ApplicationController
   
   def food_params
     params.require(:food).permit(:price, :type, :name, 
-                                 :food_type, :wrin, :user_id)
+                                 :food_type, :wrin, :user_id, :sort_order)
   end
 
 end
