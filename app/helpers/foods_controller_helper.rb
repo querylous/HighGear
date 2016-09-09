@@ -36,4 +36,10 @@ module FoodsControllerHelper
     top_yesterday_waste.sort_by! { |y| y.values }
     return top_yesterday_waste.reverse[0..9]
   end
+  
+  def last_count_time
+    time = WasteCount.last.created_at
+    time = time.in_time_zone("Pacific Time (US & Canada)")
+    return time.to_s(:time)
+  end
 end
