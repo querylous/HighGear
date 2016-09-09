@@ -54,10 +54,24 @@ function submitWasteCount( submit_data ){
   });
 };
 
+function colorTop5(){
+  var totals = [];
+  $('.today_cost').each(function(){
+    totals.push(parseFloat( $(this).html().replace(/\$/g, '') ));
+  });
+  totals = totals.sort(function(a, b){return a-b}).reverse();
+  $('.today_cost').each(function(){
+    if ( (parseFloat( $(this).html().replace(/\$/g, '') )) > totals[5] ) {
+      $(this).closest('tr').addClass('alert-warning')
+    }
+  });
+}
+
 var ready;
 ready = function() {
 
   updateTodayTotals();
+  colorTop5();
 
   $(document).on('click', '.submit_food_item_count', function(event){
     event.stopImmediatePropagation();
@@ -68,6 +82,7 @@ ready = function() {
     var price = parseFloat( $('#today_cost_' + id).attr('data-price') );
     var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
     $('#today_cost_' + id).html(formatCurrency(cost));
+    colorTop5();
   });
 
   $(document).on('keyup', '.food_item_count', function(event){
@@ -78,6 +93,7 @@ ready = function() {
     var price = parseFloat( $('#today_cost_' + id).attr('data-price') );
     var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
     $('#today_cost_' + id).html(formatCurrency(cost));
+    colorTop5();
   });
 
 
