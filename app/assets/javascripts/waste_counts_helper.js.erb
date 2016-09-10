@@ -61,7 +61,7 @@ function colorTop5(){
   });
   totals = totals.sort(function(a, b){return a-b}).reverse();
   $('.today_cost').each(function(){
-    if ( (parseFloat( $(this).html().replace(/\$/g, '') )) > totals[5] ) {
+    if ( (parseFloat( $(this).html().replace(/\$/g, '') )) > totals[4] ) {
       $(this).closest('tr').addClass('alert-warning')
     }
   });
