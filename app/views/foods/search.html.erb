@@ -22,7 +22,7 @@
         <tr>
           <td><%= Food.find_by_id(wc[:food_id]).name.titleize %></td>
           <td><%= wc[:total_count] %></td>
-          <td><%= humnaized_money_with_symbol(wc[:total_cost]) %></td>
+          <td><%= humanized_money_with_symbol(wc[:total_cost]) %></td>
         </tr>
       <% end %>
     </tbody>
