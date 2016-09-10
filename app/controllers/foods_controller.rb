@@ -53,7 +53,7 @@ class FoodsController < ApplicationController
   def index
     @foods = Food.all
     @today_counts = WasteCount
-      .where(created_at: (Time.parse("04:00"))..Time.now)
+      .where(created_at: (Time.parse("04:00"))..(Time.now.end_of_day + 3.hours))
     @week_counts = WasteCount
       .where(created_at: (Time.now - 7.days)..Time.now)
     @breakfast_completed = @foods
