@@ -4,10 +4,15 @@ class WasteCountsController < ApplicationController
       @waste_counts_json = params[:waste_counts]
       logger.info @waste_counts_json
       @waste_counts_json.each do |key, item|
+        date = Time.parse(item['date']).strftime("%F")
+        date = date + " " + Time.now.strftime("%T %:z")
+        date = Time.parse(date)
+        logger.info date
         @waste_count = WasteCount.new
         @waste_count.count = item['count']
         @waste_count.food_id = item['food_id']
         @waste_count.user_id = item['user_id']
+        @waste_count.created_at = date 
         @waste_count.save 
       end
       success = { :status => "ok", :message => "Success!" } 

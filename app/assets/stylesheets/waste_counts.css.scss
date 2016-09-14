@@ -27,3 +27,18 @@ a.submit_food_item_count:hover {
   padding: 2px;
 }
 
+.pad-row {
+  padding-bottom: 20px;
+}
+
+input[type=date] {
+    display: block;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+}
+
+input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"] {
+  line-height: inherit;
+  margin: 0 auto;
+}

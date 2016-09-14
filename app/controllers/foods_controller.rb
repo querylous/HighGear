@@ -52,8 +52,15 @@ class FoodsController < ApplicationController
 
   def index
     @foods = Food.all
-    @today_counts = WasteCount
-      .where(created_at: (Time.parse("04:00"))..(Time.now.end_of_day + 3.hours))
+    if params[:created_date].nil?
+      @selected_counts = WasteCount
+        .where(created_at: (Time.parse("04:00"))..(Time.now.end_of_day + 3.hours))
+      @date = Time.now
+    else
+      @date = Time.parse(params[:created_date].to_s) 
+      @selected_counts = WasteCount
+        .where(created_at: (@date.beginning_of_day + 4.hours)..(@date.end_of_day + 3.hours))
+    end
     @week_counts = WasteCount
       .where(created_at: (Time.now - 7.days)..Time.now)
     @breakfast_completed = @foods
@@ -70,10 +77,6 @@ class FoodsController < ApplicationController
       .order("sort_order")
   end
 
-  def today_counts
-    @today_counts = WasteCount
-      .where(created_at: Time.now.midnight..Time.now)
-  end
 
   def sort
     if request.xhr?  
