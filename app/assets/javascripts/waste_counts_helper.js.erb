@@ -114,6 +114,9 @@ ready = function() {
     }
   });
 
+  $('tbody > tr').on('doubletap', function(e){
+    $(this).toggleClass('success');
+  });
   $(document).on('click', '#clear_counts', clearCounts );
 }
 
