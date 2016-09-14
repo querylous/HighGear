@@ -2,10 +2,12 @@
   width: 45px;
 }
 
+// for fat fingers
 .glyphicon-plus-sign {
   font-size: 1.75em;
 }
 
+//give the links some styling that doesn't suck.
 a.submit_food_item_count {
   color: #333333;
   text-decoration: none;
@@ -23,14 +25,17 @@ a.submit_food_item_count:hover {
   color: #333333;  
 }
 
+// reduce bootstrap padding on tables to increase info density
 .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
   padding: 2px;
 }
 
+// add some spaces between top buttons/controls and next row
 .pad-row {
   padding-bottom: 20px;
 }
 
+// stop stupid apple styling from preventing centering.
 input[type=date] {
     display: block;
     -webkit-appearance: button;
@@ -38,7 +43,12 @@ input[type=date] {
     appearance: button;
 }
 
+// fix more stupid apple styling and center date input
 input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"] {
   line-height: inherit;
   margin: 0 auto;
+}
+
+#today_total_cost {
+  display: inline-block;
 }
