@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :users
   resources :foods
   resources :waste_counts
+  resources :sales_hours
 end

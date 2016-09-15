@@ -1,0 +1,28 @@
+<div class="row">
+  <table class="table">
+    <thead>
+      <th>Hour</th>
+      <th>Projected Sales</th>
+      <th>Actual Sales</th>
+      <th>Hour +/-</th>
+      <th>Projected Crew</th>
+      <th>Actual Crew</th>
+      <th>Crew +/- Hourly</th>
+    </thead>
+    <tbody>
+      <% i = 4 %> 
+      <% 24.times do %>
+        <tr>
+          <td><%= (Time.now.beginning_of_day. + i.hours).strftime("%H:%M") %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% i = i + 1 %>
+      <% end %>
+    </tbody> 
+  </table>
+</div>
