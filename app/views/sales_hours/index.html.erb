@@ -11,9 +11,10 @@
     </thead>
     <tbody>
       <% i = 4 %> 
+      <% hour = (Time.now.beginning_of_day. + i.hours).strftime("%H:%M") %>
       <% 24.times do %>
         <tr>
-          <td><%= (Time.now.beginning_of_day. + i.hours).strftime("%H:%M") %></td>
+          <td><%= time %></td>
           <td></td>
           <td></td>
           <td></td>
