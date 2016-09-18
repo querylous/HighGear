@@ -1,29 +1,33 @@
 <div class="row">
-  <table class="table">
-    <thead>
-      <th>Hour</th>
-      <th>Projected Sales</th>
-      <th>Actual Sales</th>
-      <th>Hour +/-</th>
-      <th>Projected Crew</th>
-      <th>Actual Crew</th>
-      <th>Crew +/- Hourly</th>
-    </thead>
-    <tbody>
-      <% i = 4 %> 
-      <% hour = (Time.now.beginning_of_day. + i.hours).strftime("%H:%M") %>
-      <% 24.times do %>
-        <tr>
-          <td><%= time %></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      <% i = i + 1 %>
-      <% end %>
-    </tbody> 
-  </table>
+  <div class="col-sm-8">
+    <table class="table">
+      <thead>
+        <th>Hour</th>
+        <th>Projected Sales</th>
+        <th>Actual Sales</th>
+        <th>Hour +/-</th>
+        <th>Projected Crew</th>
+        <th>Actual Crew</th>
+        <th>Crew +/- Hourly</th>
+      </thead>
+      <tbody>
+        <% i = 4 %> 
+        <% 24.times do %>
+          <% hour = (Time.now.beginning_of_day. + i.hours) %>
+          <tr>
+            <td><%= hour.strftime("%H:%M") %></td>
+            <td><input type="text" class="form-control sales-hour" id="projected_sales_<%= hour.strftime("%H") %>"></td>
+            <td><input type="text" class="form-control sales-hour" id="actual_sales_<%= hour.strftime("%H") %>"></td>
+            <td><span id="sales_plus_minus_<%= hour.strftime("%H") %>">0</span></td>
+            <td><input type="text" class="form-control sales-hour" id="projected_crew_<%= hour.strftime("%H") %>"></td>
+            <td><input type="text" class="form-control sales-hour" id="actual_crew_<%= hour.strftime("%H") %>"></td>
+            <td><span id="crew_plus_minus_<%= hour.strftime("%H") %>">0</td>
+          </tr>
+        <% i = i + 1 %>
+        <% end %>
+      </tbody> 
+    </table>
+  </div>
+  <div class="col-sm-4">
+  </div>
 </div>
