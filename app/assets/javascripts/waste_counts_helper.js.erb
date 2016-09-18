@@ -50,6 +50,7 @@ function submitWasteCount( submit_data ){
       clearCounts();
       showSuccessMessage();
       updateTodayTotals();
+      $('.submit').prop('disabled', false)
     }
   });
 };
@@ -98,6 +99,7 @@ ready = function() {
 
 
   $('.submit').click( function() {
+    $('.submit').prop('disabled', true);
     var submit_data = { waste_counts:[] };
     $('.food_item_count').each(function() {
       var food_id = $(this).attr('data-product_id');
@@ -112,6 +114,8 @@ ready = function() {
     });
     if( submit_data.waste_counts.length > 0 ) {
       submitWasteCount( submit_data );
+    } else {
+    $('.submit').prop('disabled', false);
     }
   });
 
