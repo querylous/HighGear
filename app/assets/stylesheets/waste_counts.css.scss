@@ -44,11 +44,18 @@ input[type=date] {
 }
 
 // fix more stupid apple styling and center date input
-input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"] {
+input[type="date"],
+input[type="time"], 
+input[type="datetime-local"], 
+input[type="month"] {
   line-height: inherit;
   margin: 0 auto;
 }
 
 #today_total_cost {
   display: inline-block;
+}
+
+.test {
+  width: 100%;
 }

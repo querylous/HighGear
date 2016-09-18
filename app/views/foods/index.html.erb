@@ -7,23 +7,24 @@
 <div class="row">
   <div class="col-sm-4 pad-row">
     <div class="text-center">
-      <span class="alert h4">Today's Total:&nbsp;</span>
+      <span class="alert h4">Today's Total: </span>
+      <br>
       <span id="today_total_cost" class="alert alert-success h4">0</span>
     </div> 
   </div>
   <div class="col-sm-4 pad-row">
     <div class="text-center">
-      <%= link_to button("My Counts Today"), foods_my_today_path %>
-      <%= link_to button(icon(:sort)), '#', {id: 'turn_sort_on'} %>
-      <% if current_user.admin? %>
-        <%= link_to button("New Food"), new_food_path %>
-      <% end %>
     </div>
   </div>
   <div class="col-sm-4 pad-row">
     <div class="text-center">
+      <% if current_user.admin? %>
+        <%= link_to button("New Food"), new_food_path %>
+      <% end %>
+      <%= link_to button("My Counts Today"), foods_my_today_path, {class: 'test'} %>
+      <%= link_to button(icon(:sort)), '#', {id: 'turn_sort_on'} %>
       <%= form_tag(foods_path, :method => 'get') do %>
-        <%= date_field :created_date, nil, value: @date.strftime("%F"), class: 'btn btn-sm btn-default text-center' %> 
+        <%= date_field :created_date, nil, value: @date.strftime("%F"), class: 'btn btn-default text-center input-date', width: '100%' %> 
         <%= submit_tag("Go") %>
       <% end %>
       <p class="text-muted">Last counted: <%= last_count_time %></p>
