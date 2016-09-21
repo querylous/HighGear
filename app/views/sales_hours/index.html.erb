@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-sm-8">
+    <div class="text-center today-totals">
+      <span class="alert h4">Sales: </span>
+      <br>
+      <span id="today-total-sales" class="alert alert-success h4 today-totals-amount">0</span>
+    </div>
+    <div class="text-center today-totals">
+      <span class="alert h4">Labor: </span>
+      <br>
+      <span id="today-total-sales" class="alert alert-success h4 today-totals-amount">0</span>
+    </div>
+    <div class="text-center today-totals">
+      <span class="alert h4">Waste: </span>
+      <br>
+      <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
+    </div>  
+  </div>
+  <div class="col-sm-4">
+    <div class="text-center">
+      <%= form_tag(sales_hours_path, :method => 'get') do %>
+        <%= date_field :date, nil, value: @start_date.strftime("%F"), class: 'btn btn-default text-center input-date' %>
+        <%= submit_tag("Go") %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+
+</div>

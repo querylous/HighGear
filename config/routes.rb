@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get    'foods/today_counts' => 'foods#today'
   get    'foods/search' => 'foods#search'
   get    'foods/my_today' => 'foods#my_today'
+  get    'sales_hours/process_projections' => 'sales_hours#process_projections'
   resources :users
   resources :foods
   resources :waste_counts
+  resources :sales_hours
 end

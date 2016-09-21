@@ -12,8 +12,12 @@ module FoodsControllerHelper
 
   def get_total_dollars(id, time)
     total_dollar_cost = []
-    user = User.find_by_id(id)
-    selected_waste_counts = user.waste_counts.where(created_at: time)
+    if id != "any"
+      user = User.find_by_id(id)
+      selected_waste_counts = user.waste_counts.where(created_at: time)
+    else
+      selected_waste_counts = WasteCount.where(created_at: time) 
+    end
     unique_food_ids = selected_waste_counts.uniq.pluck(:food_id)
     unique_food_ids.each do |u|
       count = selected_waste_counts.where(food_id: u).sum('count')
