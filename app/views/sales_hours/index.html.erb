@@ -8,7 +8,7 @@
     <div class="text-center today-totals">
       <span class="alert h4">Labor: </span>
       <br>
-      <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= get_labor_up_down_today %></span>
+      <span id="today-total-labor" class="alert alert-success h4 today-totals-amount"><%= get_labor_up_down_today %></span>
     </div>
     <div class="text-center today-totals">
       <span class="alert h4">Waste: </span>
@@ -43,6 +43,7 @@
            users << { u.id => "#{u.fname}" }
          end
          logger.info users.to_json
+         submitoptions = 
       %> 
       <% @sales_hours.each do |s| %>
         <tr>

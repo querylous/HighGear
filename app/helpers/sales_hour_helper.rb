@@ -1,6 +1,6 @@
 module SalesHourHelper
-  def process_projections
-    file = './projections.csv'
+  def process_projections(file = nil)
+    file = './projections.csv' if file.nil? 
     options = { :remove_unmapped_keys => true, 
                 :key_mapping => 
               { :date => :date,
@@ -36,8 +36,8 @@ module SalesHourHelper
     end
   end
  
-  def process_schedule
-    file = './schedule.csv'
+  def process_schedule(file = nil)
+    file = './schedule.csv' if file.nil?
     options = { :remove_unmapped_keys => true, 
                 :key_mapping => 
               { :date => :date,
