@@ -43,20 +43,28 @@
            users << { u.id => "#{u.fname}" }
          end
          logger.info users.to_json
-         submitoptions = 
+         submit_options = 'submitdata: {user_id: ' + current_user.id.to_s + ", 
+                          type: 'text', 
+                          width: '70px', 
+                          style: 'inherit', 
+                          placeholder: 'Edit', 
+                          function(value, settings){console.log(value)}"
       %> 
       <% @sales_hours.each do |s| %>
         <tr>
           <td><%= s.datetime.localtime.strftime("%H:%M") %></td>
-          <td class="hidden-xs"><%= money_without_cents_and_with_symbol(s.projected_sales) %></td>
-          <td class="actual_sales"><%= editable_field s, :actual_sales, { submitdata: {user_id: "#{current_user.id}"} , type: 'text', width: '70px', style: 'inherit', placeholder: "Edit"} %></td>
-          <td class="hidden-xs"><%= s.projected_vlh %></td>
-          <td class="actual_vlh"><%= editable_field s, :actual_vlh, { submitdata: {user_id: "#{current_user.id}"} , type: 'text', width: '70px', style: 'inherit', placeholder: "Edit"} %></td>
-          <td><%= editable_field s, :ttl, { submitdata: {user_id: "#{current_user.id}"} , type: 'text', width: '70px', style: 'inherit', placeholder: "Edit"} %></td>
-          <td><%=  User.find(s.user_id).fname unless s.user_id.nil? %></td>
+          <td class="projected_sales hidden-xs"><%= money_without_cents_and_with_symbol(s.projected_sales) %></td>
+          <td data-hour="<%= s.id %>" data-attr="actual_sales" class="actual_sales editable">
+            <span id="<%= s.id %>"><%= s.actual_sales unless s.actual_sales.nil? %></span>
+          </td>
+          <td data-hour="<%= s.id %>" class="projected_vlh hidden-xs"><%= s.projected_vlh %></td>
+          <td data-hour="<%= s.id %>" data-attr="actual_vlh" class="actual_vlh editable">
+            <span id="<%= s.id %>" class="actual_vlh"><%= s.actual_vlh unless s.actual_vlh.nil? %></span>
+          </td>
+          <td data-hour="<%= s.id %>" data-attr="ttl" class="ttl editable"><%= s.ttl unless s.ttl.nil? %></td>
+          <td><%= User.find(s.user_id).fname unless s.user_id.nil? %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-
