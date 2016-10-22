@@ -1,4 +1,6 @@
 module FoodsControllerHelper
+  
+
   def weekly_dollars_by_user
     weekly_user_dollars = [] 
     users = User.all
@@ -42,4 +44,19 @@ module FoodsControllerHelper
     time = time.in_time_zone("Pacific Time (US & Canada)")
     return time.to_s(:time)
   end
+  
+  def waste_dollars_by_time_block
+    ## counts = WasteCount.where(created_at: (Time.now - 30.days)..Time.now) 
+    counts = WasteCount.all 
+
+    breakfast = counts.select{ |c| c.breakfast? } 
+    lunch = counts.select{ |c| c.lunch? } 
+    snack = counts.select{ |c| c.snack? } 
+    dinner = counts.select{ |c| c.dinner? } 
+    late = counts.select{ |c| c.late? } 
+    close = counts.select{ |c| c.close? } 
+
+    
+  end 
+  
 end
