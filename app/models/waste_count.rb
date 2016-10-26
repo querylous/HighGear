@@ -2,8 +2,11 @@ class WasteCount < ActiveRecord::Base
   belongs_to :foods
   belongs_to :user
 
-
-  def self.dollars_by_time_block(period, range=(Time.now - 30.days)..Time.now)
+  tz = "Pacific Time (US & Canada)"
+  today = Time.now.in_time_zone(tz)
+  @last_month = (today - 30.days)..today
+  
+  def self.dollars_by_time_block(period, range=@last_month)
     selection = self.by_time_block(period, range)
     total = 0
     selection.each do |s|
@@ -12,7 +15,7 @@ class WasteCount < ActiveRecord::Base
     return total
   end
 
-  def self.by_time_block(period, range=(Time.now - 30.days)..Time.now)
+  def self.by_time_block(period, range=@last_month)
     counts = WasteCount.where(created_at: range)
     selection = []
     counts.each do |c|
