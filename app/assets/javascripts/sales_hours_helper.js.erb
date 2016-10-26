@@ -1,0 +1,43 @@
+function updateDailySalesTotals() {
+  console.log(this) 
+}
+
+function submitSales(currCell){
+  var submitData = {};
+  var currCellData = currCell.html();
+  var currEntry = currCell.children('span').html();
+  var hourId = currCell.attr('data-hour');
+  currCell.empty(); 
+  currCell.append('<input class="sales-entry" type="text" id="' + hourId + '" style="width: 30px; height: 20px"></input>');
+  var currInput = currCell.children('input');
+  currInput.val(currEntry)
+  currInput.focus();
+  currInput.focusout(function(){
+    currCell.empty();
+    currCell.append(currCellData);
+  });
+  $(document).on("keypress", "input.sales-entry", function (e) {
+    if (e.keyCode == 13){
+      e.preventDefault();
+      var entry = $(this).val();
+      var attr = $(this).parent().attr('data-attr');
+      id = $(this).parent().attr('data-hour');
+      submitData["id"] = id;
+      submitData[attr] = entry;
+    }
+  });
+}
+
+var ready;
+
+ready = function() {
+  var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+  $('.editable').click(function(){
+    var currCell = $(this);
+    submitSales(currCell)
+  })
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
