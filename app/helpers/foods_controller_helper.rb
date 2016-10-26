@@ -47,18 +47,4 @@ module FoodsControllerHelper
     return time.to_s(:time)
   end
 
-  def waste_dollars_by_time_block
-    ## counts = WasteCount.where(created_at: (Time.now - 30.days)..Time.now) 
-    counts = WasteCount.all 
-    selected_counts = []
-
-    selected_counts << { :breakfast => counts.select{ |c| c.breakfast? } }
-    selected_counts << { :lunch => counts.select{ |c| c.lunch? } }
-    selected_counts << { :snack => counts.select{ |c| c.snack? } }
-    selected_counts << { :dinner => counts.select{ |c| c.dinner? } }
-    selected_counts << { :late => counts.select{ |c| c.late? } }
-    selected_counts << { :close => counts.select{ |c| c.close? } }
-
-    return selected_counts  
-  end 
 end

@@ -3,6 +3,24 @@ class WasteCount < ActiveRecord::Base
   belongs_to :user
 
 
+  def self.dollars_by_time_block(period, range=(Time.now - 30.days)..Time.now)
+    selection = self.by_time_block(period, range)
+    total = 0
+    selection.each do |s|
+      total += Food.find(s.food_id).price * s.count
+    end
+    return total
+  end
+
+  def self.by_time_block(period, range=(Time.now - 30.days)..Time.now)
+    counts = WasteCount.where(created_at: range)
+    selection = []
+    counts.each do |c|
+      selection << c unless c.time_block != period
+    end
+    return selection
+  end
+
   def time_block
     breakfast = "04:00".."10:30"
     lunch = "10:31".."14:00"
@@ -56,5 +74,10 @@ class WasteCount < ActiveRecord::Base
 
   def close?
     self.time_block == "Close"
+  end
+
+  def cost
+    price = Food.find(food_id).price
+    price * count
   end
 end
