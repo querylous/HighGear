@@ -2,8 +2,8 @@ class WasteCount < ActiveRecord::Base
   belongs_to :foods
   belongs_to :user
 
-  @tz = "Pacific Time (US & Canada)"
-  @today = Time.now.in_time_zone(@tz)
+  @@tz = "Pacific Time (US & Canada)"
+  @today = Time.now.in_time_zone(@@tz)
   @last_month = (@today - 30.days)..@today
   
   def self.dollars_by_time_block(period, range=@last_month)
@@ -31,8 +31,10 @@ class WasteCount < ActiveRecord::Base
     dinner = "17:01".."20:00"
     late = "20:00".."23:59"
     close = "00:00".."03:00"
-    curr_item_time = created_at.in_time_zone(@tz).strftime("%H:%M")
-
+    curr_item_time = created_at.in_time_zone(@@tz).strftime("%H:%M")
+    puts created_at
+    puts @@tz
+    puts curr_item_time 
     if breakfast.cover?(curr_item_time) 
       return "Breakfast"
     end
