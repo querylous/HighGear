@@ -32,9 +32,7 @@ class WasteCount < ActiveRecord::Base
     late = "20:00".."23:59"
     close = "00:00".."03:00"
     curr_item_time = created_at.in_time_zone(@@tz).strftime("%H:%M")
-    puts created_at
-    puts @@tz
-    puts curr_item_time 
+    
     if breakfast.cover?(curr_item_time) 
       return "Breakfast"
     end
