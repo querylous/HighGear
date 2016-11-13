@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to '/'
     else
-      flash.now[:danger] = 'Invalid employee number/password combination'
+      flash[:error] = "Invalid login info." 
       render 'new'
     end
   end
@@ -21,4 +21,5 @@ class SessionsController < ApplicationController
     log_out
     redirect_to root_url
   end
+
 end
