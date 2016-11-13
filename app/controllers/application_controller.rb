@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   
   def current_manager
     $current_manager = current_user
-    flash[:success] = "You're in charge #{current_user.fname}"
+    flash[:success] = "You're in charge, #{current_user.fname}"
     redirect_to root_path
   end
 end
