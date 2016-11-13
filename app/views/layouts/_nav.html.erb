@@ -5,6 +5,12 @@
   <%= horizontal do %> 
     <%= nav class: 'navbar-right' do %> 
       <% if logged_in? %>
+        <span class="text-muted navbar-text">
+          <% unless $current_manager.nil? %>
+            Currently in charge: <%= $current_manager.fname %>
+          <% end %>
+        </span>
+        <%= link_to 'Take Charge', current_manager_path %>
         <%= link_to 'Waste', foods_path %>
         <%= link_to current_user.fname, user_path(current_user.id), class: 'current_user', id: current_user.id %> 
         <%= link_to "Log out", logout_path, method: "delete" %>
@@ -14,3 +20,7 @@
     <% end %>
   <% end %>
 <% end %>
+<div class="container">
+  <div class="row">
+  </div>
+</div>
