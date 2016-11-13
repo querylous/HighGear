@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
     user = User.find_by(emp_no: params[:session][:emp_no].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to '/'
+      logger.info "from create in sessions controller #{return_point}"
+      redirect_to return_point
     else
       flash[:error] = "Invalid login info." 
       render 'new'
