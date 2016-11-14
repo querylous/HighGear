@@ -16,5 +16,4 @@ Rails.application.routes.draw do
   resources :foods
   resources :waste_counts
   get    'current_manager' => 'application#current_manager'
-  get    '/.well-known/acme-challenge/:id'  => 'foods#letsencrypt'
 end
