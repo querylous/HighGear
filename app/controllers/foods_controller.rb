@@ -3,7 +3,7 @@ class FoodsController < ApplicationController
   skip_before_action :login_first
 
   def letsencrypt
-    render text: "Eyktlze3JhQAwDBADZI8qzXEUCizygyCWnYWZZTrQLw.QbRnnbYoBYeb68-0aNKckB_eAAFSPy1bOEpq7ASSaoU"
+    render text: "Z9nV85V5M4y0BKCV3Lg00t-t-WEfohLwq58Xe9Eq2-Q.QbRnnbYoBYeb68-0aNKckB_eAAFSPy1bOEpq7ASSaoU"
   end
 
   def new
