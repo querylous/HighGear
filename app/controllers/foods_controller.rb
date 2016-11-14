@@ -1,4 +1,9 @@
 class FoodsController < ApplicationController
+
+  def letsencrypt
+    render text: "Eyktlze3JhQAwDBADZI8qzXEUCizygyCWnYWZZTrQLw.QbRnnbYoBYeb68-0aNKckB_eAAFSPy1bOEpq7ASSaoU"
+  end
+
   def new
     if logged_in?
       @food = Food.new 
