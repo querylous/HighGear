@@ -1,9 +1,12 @@
+var submitData = {};
+
+
 function updateDailySalesTotals() {
   console.log(this) 
 }
 
 function submitSales(currCell){
-  var submitData = {};
+  submitData = {};
   var currCellData = currCell.html();
   var currEntry = currCell.children('span').html();
   var hourId = currCell.attr('data-hour');
@@ -16,16 +19,6 @@ function submitSales(currCell){
     currCell.empty();
     currCell.append(currCellData);
   });
-  $(document).on("keypress", "input.sales-entry", function (e) {
-    if (e.keyCode == 13){
-      e.preventDefault();
-      var entry = $(this).val();
-      var attr = $(this).parent().attr('data-attr');
-      id = $(this).parent().attr('data-hour');
-      submitData["id"] = id;
-      submitData[attr] = entry;
-    }
-  });
 }
 
 var ready;
@@ -37,6 +30,18 @@ ready = function() {
     submitSales(currCell)
   })
 }
+
+$(document).on("keypress", "input.sales-entry", function(e) {
+  if (e.keyCode == 13){
+    e.preventDefault();
+    var entry = $(this).val();
+    var attr = $(this).parent().attr('data-attr');
+    var id = $(this).parent().attr('data-hour');
+    submitData["id"] = id;
+    submitData[attr] = entry;
+    console.log(submitData)
+  }
+});
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
