@@ -68,6 +68,7 @@ $(document).on("keypress", "input.sales-entry", function(e) {
   if (e.keyCode == 13){
 
     function success(currCell, entry, id, attr){
+
       currCell.empty();
       currCell.append('<span id="' + id + '" data-attr="' + attr + '" class="' + attr + '" data-hour=' + id + '>' + entry + '</span>')
       $('#user_'+ id).empty().append( $('.current_user').first().html() )
@@ -78,25 +79,29 @@ $(document).on("keypress", "input.sales-entry", function(e) {
     e.preventDefault();
     var currCell = $(this).closest('td');
     var entry = $(this).val();
-    var attr = $(this).parent().attr('data-attr');
-    var id = $(this).parent().attr('data-hour');
-    var user_id = $('.current_user').first().attr('id');
-    submitData["id"] = id;
-    submitData[attr] = entry;
-    submitData["user_id"] = user_id;
-    $.ajax({
-      url: '/sales_hours/'+id,
-      type: 'put',
-      data: submitData,
-      dataType: 'json',
-      success: function(){
-        success(currCell, entry, id, attr);
-        window.setTimeout(function(){
-          updateHourlySales();
-          updateDailyLabor();
-        }, 1000);
-      }
-    })
+    if ( isNaN(entry) ) {
+      $(this).blur();
+    } else {  
+      var attr = $(this).parent().attr('data-attr');
+      var id = $(this).parent().attr('data-hour');
+      var user_id = $('.current_user').first().attr('id');
+      submitData["id"] = id;
+      submitData[attr] = entry;
+      submitData["user_id"] = user_id;
+      $.ajax({
+        url: '/sales_hours/'+id,
+        type: 'put',
+        data: submitData,
+        dataType: 'json',
+        success: function(){
+          success(currCell, entry, id, attr);
+          window.setTimeout(function(){
+            updateHourlySales();
+            updateDailyLabor();
+          }, 1000);
+        }
+      })
+    }
   }
 });
 
