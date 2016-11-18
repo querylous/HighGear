@@ -14,7 +14,7 @@ module SalesHoursHelper
       p[:hour].gsub!("'", "")
       if p[:hour] == "25:00"
         p[:hour].gsub!("25:00", "01:00")
-        time = "#{p[:date]} " + "#{p[:hour]} -07:00"
+        time = "#{p[:date]} " + "#{p[:hour]} -08:00"
         time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M')
         time = time + 1.day
       else
