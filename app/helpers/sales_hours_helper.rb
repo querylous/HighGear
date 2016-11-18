@@ -18,7 +18,7 @@ module SalesHoursHelper
         time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M')
         time = time + 1.day
       else
-        time = "#{p[:date]} " + "#{p[:hour]} -07:00"
+        time = "#{p[:date]} " + "#{p[:hour]} -08:00"
         time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M %Z')
         logger.info time.zone
       end
