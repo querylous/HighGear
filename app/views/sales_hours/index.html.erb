@@ -14,7 +14,7 @@
       <div class="text-center today-totals">
         <span class="alert h4">Waste: </span>
         <br>
-        <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
+        <span id="today-total-waste" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
       </div>  
     </div>
     <div class="col-sm-4">

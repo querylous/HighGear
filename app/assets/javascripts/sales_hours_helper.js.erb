@@ -1,5 +1,15 @@
 var submitData = {};
 
+function colorTotals(total, div, low, high) {
+  if ( total > low && total < high ) {
+    $(div).addClass('alert-warning');
+  } else if ( total > high ) {
+    $(div).addClass('alert-danger');
+  } else if ( total < low ) {
+    $(div).removeClass('alert-danger alert-warning');
+  }
+}
+
 function updateDailySalesTotals() {
   var total = 0;
   $('.sales_accum').each(function (){
@@ -8,6 +18,8 @@ function updateDailySalesTotals() {
     }
   }); 
   $('#today-total-sales').html( formatCurrency(total) );
+  total = Math.abs(total);
+  colorTotals(total, '#today-total-sales', 300, 600);
 }
 
 function updateHourlySales() {
@@ -15,7 +27,6 @@ function updateHourlySales() {
     if ( $(this).html().length ) {
       var id = $(this).attr('data-hour');
       var actual = parseInt( $(this).html() );
-      console.log(id + ' ' + actual)
       var projected = parseInt( $('#projected_sales_' + id).html().replace(/\$/g, '') );
       $('#sales_accum_' + id).html( formatCurrency(actual - projected, 0) );
     }
@@ -31,7 +42,11 @@ function updateDailyLabor() {
     }
   });
   $('#today-total-labor').html(total);
+  total = Math.abs(total);
+  colorTotals(total, '#today-total-labor', 2, 5);
 }
+
+
 
 function submitSales(currCell){
   var currCellData = currCell.html();
@@ -91,11 +106,14 @@ ready3 = function() {
   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
   updateHourlySales();
   updateDailyLabor();
+  var waste = parseInt( $('#today-total-waste').html().replace(/\$/g, '') );
+  waste = Math.abs(waste);
+  colorTotals(waste, '#today-total-waste', 50, 75); 
+
   $('.editable').click(function(){
     var currCell = $(this);
     submitSales(currCell)
   });
-  console.log('ready');
 }
 
 
