@@ -9,7 +9,7 @@
       <div class="text-center today-totals">
         <span class="alert h4">Labor: </span>
         <br>
-        <span id="today-total-labor" class="alert alert-success h4 today-totals-amount"><%= get_labor_up_down_today %></span>
+        <span id="today-total-labor" class="alert alert-success h4 today-totals-amount">0</span>
       </div>
       <div class="text-center today-totals">
         <span class="alert h4">Waste: </span>
@@ -58,4 +58,4 @@
     </table>
   </div>
 </div>
-<%= render 'sales_hours/upload' %>
+<%= modal (render 'sales_hours/upload'), title: 'Upload Projections' %>

@@ -1,10 +1,8 @@
-<div class="col-sm-4">
-  <%= form_tag sales_hours_upload_path, multipart: true do %>
-    <%= select_tag(:store, 
-                    options_for_select([['4453', 4453],['11960', 11960],['11785', 11785],['18056', 18056]]), 
-                    class: 'form-control') %>
-    <%= file_field_tag :file, class: 'btn btn-default btn-file' %>
-    <%= submit_tag 'Upload Projections', class: 'btn btn-default' %>
-  <% end %>
-</div>
+<%= form_tag sales_hours_upload_path, multipart: true do %>
+  <%= select_tag(:store, 
+                  options_for_select([['4453', 4453],['11960', 11960],['11785', 11785],['18056', 18056]]), 
+                  class: 'form-control') %>
+  <%= file_field_tag :file, class: 'btn btn-default btn-file' %>
+  <%= submit_tag 'Upload Projections', class: 'btn btn-default' %>
+<% end %>
 

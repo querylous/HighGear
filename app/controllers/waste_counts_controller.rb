@@ -16,7 +16,6 @@ class WasteCountsController < ApplicationController
       end
       success = { :status => "ok", :message => "Success!" } 
       render :json => success
-      flash[:success] = "Counts saved!"
     end
   end
 
