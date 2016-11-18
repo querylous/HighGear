@@ -59,4 +59,6 @@
   </div>
 </div>
 <%= modal (render 'sales_hours/upload'), title: 'Upload Projections' %>
-<%= @sales_hours.each {|s| puts s } %>
+<%= 
+@sales_hours.sort_by &:datetime
+@sales_hours.each {|s| puts s } %>
