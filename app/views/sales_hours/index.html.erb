@@ -1,70 +1,61 @@
-<div class="row">
-  <div class="col-sm-8">
-    <div class="text-center today-totals">
-      <span class="alert h4">Sales: </span>
-      <br>
-      <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_sales_up_down_today) %></span>
+<div class="sales-counts">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="text-center today-totals">
+        <span class="alert h4">Sales: </span>
+        <br>
+        <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_sales_up_down_today) %></span>
+      </div>
+      <div class="text-center today-totals">
+        <span class="alert h4">Labor: </span>
+        <br>
+        <span id="today-total-labor" class="alert alert-success h4 today-totals-amount"><%= get_labor_up_down_today %></span>
+      </div>
+      <div class="text-center today-totals">
+        <span class="alert h4">Waste: </span>
+        <br>
+        <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
+      </div>  
     </div>
-    <div class="text-center today-totals">
-      <span class="alert h4">Labor: </span>
-      <br>
-      <span id="today-total-labor" class="alert alert-success h4 today-totals-amount"><%= get_labor_up_down_today %></span>
+    <div class="col-sm-4">
+      <div class="text-center">
+        <%= form_tag(sales_hours_path, :method => 'get') do %>
+          <%= date_field :date, nil, value: @start_date.strftime("%F"), class: 'btn btn-default text-center input-date' %>
+          <%= submit_tag("Go") %>
+        <% end %>
+      </div>
     </div>
-    <div class="text-center today-totals">
-      <span class="alert h4">Waste: </span>
-      <br>
-      <span id="today-total-sales" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
-    </div>  
   </div>
-  <div class="col-sm-4">
-    <div class="text-center">
-      <%= form_tag(sales_hours_path, :method => 'get') do %>
-        <%= date_field :date, nil, value: @start_date.strftime("%F"), class: 'btn btn-default text-center input-date' %>
-        <%= submit_tag("Go") %>
-      <% end %>
-    </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <th class="text-center">Time</th>
+        <th class="text-center hidden-xs">Projected Sales</th>
+        <th class="text-center" width="80px">Actual Sales</th>
+        <th class="text-center" width="80px">Sales +/-</th>
+        <th class="text-center" width="80px">Actual Labor</th>
+        <th class="text-center" width="80px">TTL</th>
+        <th class="text-center">Manager In charge</th>
+      <thead> 
+      <tbody class="text-center">
+        <% @sales_hours.each do |s| %>
+          <tr>
+            <td><%= s.datetime.localtime.strftime("%H:%M") %></td>
+            <td class="projected_sales hidden-xs" data-hour="<%= s.id %>">
+              <span id="projected_sales_<%= s.id %>"><%= money_without_cents_and_with_symbol(s.projected_sales) %></span></td>
+            <td data-hour="<%= s.id %>" data-attr="actual_sales" class="editable">
+              <span id="actual_sales_<%= s.id %>" data-hour="<%= s.id %>" class="actual_sales"><%= s.actual_sales unless s.actual_sales.nil? %></span>
+            </td>
+            <td data-hour="<%= s.id %>"><span id= "sales_accum_<%= s.id %>" class="sales_accum"></span></td>
+            <td data-hour="<%= s.id %>" data-attr="actual_vlh" class="actual_vlh editable">
+              <span id="actual_vlh_<%= s.id %>" class="actual_vlh"><%= s.actual_vlh unless s.actual_vlh.nil? %></span>
+            </td>
+            <td data-hour="<%= s.id %>" data-attr="ttl" class="ttl editable"><%= s.ttl unless s.ttl.nil? %></td>
+            <td id="user_<%= s.id %>"><%= User.find(s.user_id).fname unless s.user_id.nil? %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
-<div class="row">
-  <table class="table">
-    <thead>
-      <th class="text-center">Time</th>
-      <th class="text-center hidden-xs">Projected Sales</th>
-      <th class="text-center" width="80px">Actual Sales</th>
-      <th class="text-center hidden-xs">Projected Labor</th>
-      <th class="text-center" width="80px">Actual Labor</th>
-      <th class="text-center" width="80px">TTL</th>
-      <th class="text-center">Manager In charge</th>
-    <thead> 
-    <tbody class="text-center">
-      <% 
-         users = []
-         User.where(store_number: current_user.store_number).each do |u|
-           users << { u.id => "#{u.fname}" }
-         end
-         logger.info users.to_json
-         submit_options = 'submitdata: {user_id: ' + current_user.id.to_s + ", 
-                          type: 'text', 
-                          width: '70px', 
-                          style: 'inherit', 
-                          placeholder: 'Edit', 
-                          function(value, settings){console.log(value)}"
-      %> 
-      <% @sales_hours.each do |s| %>
-        <tr>
-          <td><%= s.datetime.localtime.strftime("%H:%M") %></td>
-          <td class="projected_sales hidden-xs"><%= money_without_cents_and_with_symbol(s.projected_sales) %></td>
-          <td data-hour="<%= s.id %>" data-attr="actual_sales" class="actual_sales editable">
-            <span id="<%= s.id %>"><%= s.actual_sales unless s.actual_sales.nil? %></span>
-          </td>
-          <td data-hour="<%= s.id %>" class="projected_vlh hidden-xs"><%= s.projected_vlh %></td>
-          <td data-hour="<%= s.id %>" data-attr="actual_vlh" class="actual_vlh editable">
-            <span id="<%= s.id %>" class="actual_vlh"><%= s.actual_vlh unless s.actual_vlh.nil? %></span>
-          </td>
-          <td data-hour="<%= s.id %>" data-attr="ttl" class="ttl editable"><%= s.ttl unless s.ttl.nil? %></td>
-          <td><%= User.find(s.user_id).fname unless s.user_id.nil? %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<%= render 'sales_hours/upload' %>

@@ -2,7 +2,6 @@ class WasteCountsController < ApplicationController
   def new
     if request.xhr?
       @waste_counts_json = params[:waste_counts]
-      logger.info @waste_counts_json
       @waste_counts_json.each do |key, item|
         date = Time.parse(item['date']).strftime("%F")
         date = date + " " + Time.now.strftime("%T %:z")

@@ -1,10 +1,10 @@
-function formatCurrency(total) {
+function formatCurrency(total, places=2) {
     var neg = false;
     if(total < 0) {
         neg = true;
         total = Math.abs(total);
     }
-    return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+    return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(places).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
 }
 
 function clearCounts() {
@@ -32,7 +32,7 @@ function updateTodayTotals(){
   } else if ( todayTotal >= 75 ){
     $('#today_total_cost').removeClass('alert-warning').addClass('alert-danger');
   }
-  $('#today_total_cost').html(formatCurrency(todayTotal));
+  $('#today_total_cost').html(formatCurrency(todayTotal, 2));
 };
 
 function showSuccessMessage(){
@@ -57,6 +57,7 @@ function submitWasteCount( submit_data ){
 function colorTop5(){
   var totals = [];
   $('.today_cost').each(function(){
+    $(this).closest('tr').removeClass('alert-warning');
     totals.push(parseFloat( $(this).html().replace(/\$/g, '') ));
   });
   totals = totals.sort(function(a, b){return a-b}).reverse();
@@ -67,9 +68,8 @@ function colorTop5(){
   });
 }
 
-var ready;
-ready = function() {
-
+var ready2;
+ready2 = function() {
   updateTodayTotals();
   colorTop5();
 
@@ -81,7 +81,7 @@ ready = function() {
     $('#food_item_count_' + id).val( count );
     var price = parseFloat( $('#today_cost_' + id).attr('data-price') );
     var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
-    $('#today_cost_' + id).html(formatCurrency(cost));
+    $('#today_cost_' + id).html(formatCurrency(cost, 2));
     colorTop5();
   });
 
@@ -92,7 +92,7 @@ ready = function() {
     var count = $(this).val();
     var price = parseFloat( $('#today_cost_' + id).attr('data-price') );
     var cost = (price * count) + ( parseFloat( $('#today_count_' + id).html() ) * price );
-    $('#today_cost_' + id).html(formatCurrency(cost));
+    $('#today_cost_' + id).html(formatCurrency(cost, 2));
     colorTop5();
   });
 
@@ -123,7 +123,10 @@ ready = function() {
   $(document).on('click', '#clear_counts', clearCounts );
 }
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+$(document).on('turbolinks:load', function(){
+  if ( $('div').is('.waste-counts') ) {
+    ready2();
+  }
+});
 
 
