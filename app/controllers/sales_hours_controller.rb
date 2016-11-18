@@ -12,6 +12,9 @@ class SalesHoursController < ApplicationController
       logger.info "date is #{@start_date}"
     end
     end_date = @start_date.end_of_day + 3.hours
+    if @start_date.friday? || @start_date.saturday?
+      end_date = @start_date.end_of_day + 4.hours
+    end
     @sales_hours = SalesHour.where(
       store_number: current_user.store_number,
       datetime: @start_date..end_date
