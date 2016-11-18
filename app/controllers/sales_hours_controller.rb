@@ -16,6 +16,7 @@ class SalesHoursController < ApplicationController
       store_number: current_user.store_number,
       datetime: @start_date..end_date
       )
+    @sales_hours = @sales_hours.sort_by &:datetime
   end
   
   def create
