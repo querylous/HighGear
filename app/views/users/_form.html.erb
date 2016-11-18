@@ -6,8 +6,11 @@
   <%= f.text_field     :emp_no, label: 'Employee Number',
                         placeholder: 'Employee Number' %>
   <%= f.email_field    :email %>
-  <%= f.number_field   :store_number, options: { label: 'Store Number', placeholder: 'Store Number' } %> 
-  <%= f.password_field :password %>
+  <%= f.select(:store_number, 
+                options_for_select([['4453', 4453],['11960', 11960],
+                                  ['11785', 11785],['18056', 18056]]), 
+                class: 'form-control') %>
+<%= f.password_field :password %>
   <%= f.password_field :password_confirmation %>  
   <%= f.submit 'Save'%> 
 <% end %>

@@ -38,7 +38,7 @@ function submitSales(currCell){
   var currEntry = currCell.children('span').html();
   var hourId = currCell.attr('data-hour');
   currCell.empty(); 
-  currCell.append('<input class="sales-entry" type="text" id="' + hourId + '" style="width: 45px; height: 20px"></input>');
+  currCell.append('<input class="sales-entry" type="tel" id="' + hourId + '" style="width: 45px; height: 20px"></input>');
   var currInput = currCell.children('input');
   currInput.val(currEntry)
   currInput.focus();
