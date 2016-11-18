@@ -40,7 +40,7 @@
       <tbody class="text-center">
         <% @sales_hours.each do |s| %>
           <tr>
-            <td><%= s.datetime.localtime.strftime("%H:%M") %></td>
+            <td><%= s.datetime.strftime("%H:%M") %></td>
             <td class="projected_sales hidden-xs" data-hour="<%= s.id %>">
               <span id="projected_sales_<%= s.id %>"><%= money_without_cents_and_with_symbol(s.projected_sales) %></span></td>
             <td data-hour="<%= s.id %>" data-attr="actual_sales" class="editable">
