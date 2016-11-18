@@ -1,0 +1,107 @@
+var submitData = {};
+
+function updateDailySalesTotals() {
+  var total = 0;
+  $('.sales_accum').each(function (){
+    if ( $(this).html().length ) {
+     total += parseInt( $(this).html().replace(/\$/g, '') );
+    }
+  }); 
+  $('#today-total-sales').html( formatCurrency(total) );
+}
+
+function updateHourlySales() {
+  $('.actual_sales').each(function(){
+    if ( $(this).html().length ) {
+      var id = $(this).attr('data-hour');
+      var actual = parseInt( $(this).html() );
+      console.log(id + ' ' + actual)
+      var projected = parseInt( $('#projected_sales_' + id).html().replace(/\$/g, '') );
+      $('#sales_accum_' + id).html( formatCurrency(actual - projected, 0) );
+    }
+  });
+  updateDailySalesTotals();
+}
+
+function updateDailyLabor() {
+  var total = 0.0;
+  $('span.actual_vlh').each(function(){
+    if ( $(this).html().length ) {
+      total += parseFloat( $(this).html() );
+    }
+  });
+  $('#today-total-labor').html(total);
+}
+
+function submitSales(currCell){
+  var currCellData = currCell.html();
+  var currEntry = currCell.children('span').html();
+  var hourId = currCell.attr('data-hour');
+  currCell.empty(); 
+  currCell.append('<input class="sales-entry" type="text" id="' + hourId + '" style="width: 45px; height: 20px"></input>');
+  var currInput = currCell.children('input');
+  currInput.val(currEntry)
+  currInput.focus();
+  currInput.focusout(function(){
+    currCell.empty();
+    currCell.append(currCellData);
+  });
+}
+
+
+$(document).on("keypress", "input.sales-entry", function(e) {
+  if (e.keyCode == 13){
+
+    function success(currCell, entry, id, attr){
+      currCell.empty();
+      currCell.append('<span id="' + id + '" data-attr="' + attr + '" class="' + attr + '" data-hour=' + id + '>' + entry + '</span>')
+      $('#user_'+ id).empty().append( $('.current_user').first().html() )
+    }
+
+
+    submitData = {};
+    e.preventDefault();
+    var currCell = $(this).closest('td');
+    var entry = $(this).val();
+    var attr = $(this).parent().attr('data-attr');
+    var id = $(this).parent().attr('data-hour');
+    var user_id = $('.current_user').first().attr('id');
+    submitData["id"] = id;
+    submitData[attr] = entry;
+    submitData["user_id"] = user_id;
+    $.ajax({
+      url: '/sales_hours/'+id,
+      type: 'put',
+      data: submitData,
+      dataType: 'json',
+      success: function(){
+        success(currCell, entry, id, attr);
+        window.setTimeout(function(){
+          updateHourlySales();
+          updateDailyLabor();
+        }, 1000);
+      }
+    })
+  }
+});
+
+var ready3;
+
+ready3 = function() {
+  var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+  updateHourlySales();
+  updateDailyLabor();
+  $('.editable').click(function(){
+    var currCell = $(this);
+    submitSales(currCell)
+  });
+  console.log('ready');
+}
+
+
+$(document).on('turbolinks:load', function(){
+  if ( $('div').is('.sales-counts') ) {
+    ready3();
+  }
+});
+

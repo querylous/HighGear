@@ -4,97 +4,99 @@
 <div class="row">
 
 </div>
-<div class="row">
-  <div class="col-sm-4 pad-row">
-    <div class="text-center">
-      <span class="alert h4">Today's Total: </span>
-      <br>
-      <span id="today_total_cost" class="alert alert-success h4">0</span>
-    </div> 
-  </div>
-  <div class="col-sm-4 pad-row">
-    <div class="text-center">
+<div class="waste-counts">
+  <div class="row">
+    <div class="col-sm-4 pad-row">
+      <div class="text-center">
+        <span class="alert h4">Today's Total: </span>
+        <br>
+        <span id="today_total_cost" class="alert alert-success h4">0</span>
+      </div> 
+    </div>
+    <div class="col-sm-4 pad-row">
+      <div class="text-center">
+      </div>
+    </div>
+    <div class="col-sm-4 pad-row">
+      <div class="text-center">
+        <% if current_user.admin? %>
+          <%= link_to button("New Food"), new_food_path %>
+        <% end %>
+        <%= link_to button("My Counts Today"), foods_my_today_path, {class: 'test'} %>
+        <%= link_to button(icon(:sort)), '#', {id: 'turn_sort_on'} %>
+        <%= form_tag(foods_path, :method => 'get') do %>
+          <%= date_field :created_date, nil, value: @date.strftime("%F"), class: 'btn btn-default text-center input-date', width: '100%' %> 
+          <%= submit_tag("Go") %>
+        <% end %>
+        <p class="text-muted">Last counted: <%= last_count_time %></p>
+      </div>
     </div>
   </div>
-  <div class="col-sm-4 pad-row">
-    <div class="text-center">
-      <% if current_user.admin? %>
-        <%= link_to button("New Food"), new_food_path %>
-      <% end %>
-      <%= link_to button("My Counts Today"), foods_my_today_path, {class: 'test'} %>
-      <%= link_to button(icon(:sort)), '#', {id: 'turn_sort_on'} %>
-      <%= form_tag(foods_path, :method => 'get') do %>
-        <%= date_field :created_date, nil, value: @date.strftime("%F"), class: 'btn btn-default text-center input-date', width: '100%' %> 
-        <%= submit_tag("Go") %>
-      <% end %>
-      <p class="text-muted">Last counted: <%= last_count_time %></p>
+  <div class="row">
+
+  </div>
+  <div class="row">
+     <div class="text-center">
+      <button class="submit btn btn-default" type="button">Save</button>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
     </div>
   </div>
-</div>
-<div class="row">
+  <div class="row">
+    <%= render 'foods/table', foods: @breakfast_raw, table_name: "Breakfast Raw" %>
+    <%= render 'foods/table', foods: @breakfast_completed, table_name: "Breakfast Completed" %>
+  <div class="row">
+    <div class="text-center">
+      <button class="submit btn btn-default" type="button">Save</button>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
+    </div>
+  </div>
 
-</div>
-<div class="row">
-   <div class="text-center">
-    <button class="submit btn btn-default" type="button">Save</button>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
   </div>
-</div>
-<div class="row">
-  <%= render 'foods/table', foods: @breakfast_raw, table_name: "Breakfast Raw" %>
-  <%= render 'foods/table', foods: @breakfast_completed, table_name: "Breakfast Completed" %>
-<div class="row">
-  <div class="text-center">
-    <button class="submit btn btn-default" type="button">Save</button>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
+  <div class="row">
+    <%= render 'foods/table', foods: @lunch_raw, table_name: "Lunch Raw" %>
+    <%= render 'foods/table', foods: @lunch_completed, table_name: "Lunch Completed" %>
   </div>
-</div>
-
-</div>
-<div class="row">
-  <%= render 'foods/table', foods: @lunch_raw, table_name: "Lunch Raw" %>
-  <%= render 'foods/table', foods: @lunch_completed, table_name: "Lunch Completed" %>
-</div>
-<div class="row">
-  <div class="text-center">
-    <button class="submit btn btn-default" type="button">Save</button>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
+  <div class="row">
+    <div class="text-center">
+      <button class="submit btn btn-default" type="button">Save</button>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <a href="#" class="btn btn-danger" id="clear_counts">Clear Counts</a>
+    </div>
   </div>
-</div>
-<div class="row separator">
-</div>
-<div class="row">
-  <div class="col-sm-4">
-    <h3 class="text-center">Weekly Leaderboard</h3>
-    <table id="week_counts" class="table">
-      <thead> <th>Name</th> <th>Total Cost/Week</th> </thead> <tbody id="week_counts_body"> </tbody>
-    </table>
+  <div class="row separator">
   </div>
-  <div class="col-sm-4">
-    <h3 class="text-center">Yesterday's Top Waste</h3>
-    <table id="top_yesterday_waste" class="table">
-      <thead>
-        <th>Food Item</th>
-        <th>Total Cost</th>
-      </thead>
-      <tbody id="top_yesterday_waste_body">
-      </tbody>
-    </table>
-  </div>
-  <div class="col-sm-4">
-    <h3>Search</h3>
-    <%= form_tag(foods_search_path, :method => "get", id: "search-form", class: "form form-group") do %>
-      <%= label_tag 'start_date', 'Start Date' %>
-      <%= date_field :start_date, nil, :minute_step => 15, class: 'form-control' %>
-      <%= label 'end_date', 'End Date' %>
-      <%= date_field :end_date, nil, :minute_step => 15, class: 'form-control' %>
-      <%= label 'user_id', 'User' %>
-      <%= collection_select(:user_id, nil, User.all, :id, :fname, {include_blank: "Any User"}, {class: 'form-control'}) %>
-      <%= submit_tag "Search", class: 'btn btn-default' %>
-    <% end %>
+  <div class="row">
+    <div class="col-sm-4">
+      <h3 class="text-center">Weekly Leaderboard</h3>
+      <table id="week_counts" class="table">
+        <thead> <th>Name</th> <th>Total Cost/Week</th> </thead> <tbody id="week_counts_body"> </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      <h3 class="text-center">Yesterday's Top Waste</h3>
+      <table id="top_yesterday_waste" class="table">
+        <thead>
+          <th>Food Item</th>
+          <th>Total Cost</th>
+        </thead>
+        <tbody id="top_yesterday_waste_body">
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      <h3>Search</h3>
+      <%= form_tag(foods_search_path, :method => "get", id: "search-form", class: "form form-group") do %>
+        <%= label_tag 'start_date', 'Start Date' %>
+        <%= date_field :start_date, nil, :minute_step => 15, class: 'form-control' %>
+        <%= label 'end_date', 'End Date' %>
+        <%= date_field :end_date, nil, :minute_step => 15, class: 'form-control' %>
+        <%= label 'user_id', 'User' %>
+        <%= collection_select(:user_id, nil, User.all, :id, :fname, {include_blank: "Any User"}, {class: 'form-control'}) %>
+        <%= submit_tag "Search", class: 'btn btn-default' %>
+      <% end %>
+    </div>
   </div>
 </div>
 <script>
@@ -111,7 +113,7 @@ function getTodayCounts() {
     count = parseInt( currSelector.html() );
     count += parseInt( <%= c.count %> );
     currSelector.html(count);
-    costSelector.html( formatCurrency(count * currCost) );
+    costSelector.html( formatCurrency(count * currCost, 2) );
   <% end %> 
   }
 getTodayCounts();
