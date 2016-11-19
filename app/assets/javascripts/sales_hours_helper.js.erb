@@ -14,7 +14,7 @@ function updateDailySalesTotals() {
   var total = 0;
   $('.sales_accum').each(function (){
     if ( $(this).html().length ) {
-     total += parseInt( $(this).html().replace(/\$/g, '') );
+     total += parseInt( $(this).html().replace(/[^0-9\-]/g,'') );
     }
   }); 
   $('#today-total-sales').html( formatCurrency(total) );
@@ -27,7 +27,7 @@ function updateHourlySales() {
     if ( $(this).html().length ) {
       var id = $(this).attr('data-hour');
       var actual = parseInt( $(this).html() );
-      var projected = parseInt( $('#projected_sales_' + id).html().replace(/\$/g, '') );
+      var projected = parseInt( $('#projected_sales_' + id).html().replace(/[^0-9\-]/g,'') );
       $('#sales_accum_' + id).html( formatCurrency(actual - projected, 0) );
     }
   });
@@ -111,7 +111,7 @@ ready3 = function() {
   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
   updateHourlySales();
   updateDailyLabor();
-  var waste = parseInt( $('#today-total-waste').html().replace(/\$/g, '') );
+  var waste = parseInt( $('#today-total-waste').html().replace(/[^0-9\-]/g,'') );
   waste = Math.abs(waste);
   colorTotals(waste, '#today-total-waste', 50, 75); 
 
