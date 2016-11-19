@@ -15,12 +15,11 @@ module SalesHoursHelper
       if p[:hour] == "25:00"
         p[:hour].gsub!("25:00", "01:00")
         time = "#{p[:date]} " + "#{p[:hour]} -08:00"
-        time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M')
+        time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M %Z')
         time = time + 1.day
       else
         time = "#{p[:date]} " + "#{p[:hour]} -08:00"
         time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M %Z')
-        logger.info time.zone
       end
       @formatted_projections.push( { :time => time, :sales => p[:sales] })
     end 
@@ -66,7 +65,6 @@ module SalesHoursHelper
         time = time + 1.day
       else
         time = "#{p[:date]} " + "#{p[:hour]} -07:00"
-        logger.info time
         time = DateTime.strptime("#{time}", '%m/%d/%Y %H:%M %Z')
       end
       @formatted_schedule.push( { :time => time, :projected_vlh => p[:vlh] })
@@ -84,7 +82,6 @@ module SalesHoursHelper
   def get_total_sales_hours(id, time, col)
     selected_hours = SalesHour.where(datetime: time) 
     selected_hours = selected_hours.where(user_id: id) unless id.nil? 
-    logger.info selected_hours.sum(col)
     return selected_hours.sum(col)
   end
   

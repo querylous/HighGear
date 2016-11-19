@@ -6,10 +6,8 @@ class SalesHoursController < ApplicationController
   def index
     if params[:date].nil?
       @start_date = Time.now.beginning_of_day + 4.hours
-      logger.info "date is #{@start_date}"
     else
       @start_date = (Time.parse(params[:date].to_s).beginning_of_day) + 4.hours
-      logger.info "date is #{@start_date}"
     end
     end_date = @start_date.end_of_day + 3.hours
     if @start_date.friday? || @start_date.saturday?
@@ -34,8 +32,6 @@ class SalesHoursController < ApplicationController
     respond_to do |format|
     format.html {
     if request.xhr?
-      logger.info params
-      logger.info params.class
       @sales_hour = SalesHour.find(params[:id])
       @sales_hour.actual_vlh = params[:actual_vlh].to_f unless params[:actual_vlh].nil?
       @sales_hour.ttl = params[:ttl].to_i unless params[:ttl].nil?
