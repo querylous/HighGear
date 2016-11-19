@@ -37,6 +37,7 @@ class SalesHoursController < ApplicationController
       @sales_hour.ttl = params[:ttl].to_i unless params[:ttl].nil?
       @sales_hour.actual_sales = params[:actual_sales].to_i unless params[:actual_sales].nil?
       @sales_hour.update_attributes(user_id: params[:user_id]) unless !@sales_hour.user_id.nil?
+      @sales_hour.save
       success = { :status => "ok", :message => "Successfully updated" }
       render :json => success
     else
