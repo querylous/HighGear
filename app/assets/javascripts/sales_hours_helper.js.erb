@@ -72,7 +72,6 @@ $(document).on("keypress", "input.sales-entry", function(e) {
       currCell.empty();
       currCell.append('<span id="' + id + '" data-attr="' + attr + '" class="' + attr + '" data-hour=' + id + '>' + entry + '</span>')
       $('#user_'+ id).empty().append( $('.current_user').first().html() );
-      currCell.next('td.editable').addClass('alert-warning') 
     }
 
 
