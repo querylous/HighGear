@@ -47,10 +47,10 @@
               <span id="actual_sales_<%= s.id %>" data-hour="<%= s.id %>" class="actual_sales"><%= s.actual_sales unless s.actual_sales.nil? %></span>
             </td>
             <td data-hour="<%= s.id %>"><span id= "sales_accum_<%= s.id %>" class="sales_accum"></span></td>
-            <td data-hour="<%= s.id %>" data-attr="actual_vlh" class="actual_vlh editable">
+            <td data-hour="<%= s.id %>" data-attr="actual_vlh" class="editable actual_vlh">
               <span id="actual_vlh_<%= s.id %>" class="actual_vlh"><%= s.actual_vlh unless s.actual_vlh.nil? %></span>
             </td>
-            <td data-hour="<%= s.id %>" data-attr="ttl" class="ttl editable"><%= s.ttl unless s.ttl.nil? %></td>
+            <td data-hour="<%= s.id %>" data-attr="ttl" class="editable ttl"><%= s.ttl unless s.ttl.nil? %></td>
             <td id="user_<%= s.id %>"><%= User.find(s.user_id).fname unless s.user_id.nil? %></td>
           </tr>
         <% end %>

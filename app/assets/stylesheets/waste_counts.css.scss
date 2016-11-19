@@ -26,7 +26,12 @@ a.submit_food_item_count:hover {
 }
 
 // reduce bootstrap padding on tables to increase info density
-.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+.table-waste > thead > tr > th, 
+.table-waste > thead > tr > td, 
+.table-waste > tbody > tr > th,
+.table-waste > tbody > tr > td, 
+.table-waste > tfoot > tr > th,
+.table-waste > tfoot > tr > td {
   padding: 2px;
 }
 
