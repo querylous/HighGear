@@ -41,7 +41,7 @@ function updateDailyLabor() {
       total += parseFloat( $(this).html() );
     }
   });
-  $('#today-total-labor').html(total);
+  $('#today-total-labor').html(total.toFixed(2));
   total = Math.abs(total);
   colorTotals(total, '#today-total-labor', 2, 5);
 }
