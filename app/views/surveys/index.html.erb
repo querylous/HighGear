@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <th>Survey</th>
+    <th>Store</th>
+    <th>Location</th>
+    <th>API Id</th>
+    <th>API User</th>
+    <th>API Passcode</th>
+    <th>Edit</th>
+  </thead> 
+  <tbody>
+    <% @surveys.each do |s| %>
+    <tr>
+      <td><%= s.name %></td>
+      <td><%= s.store %></td>
+      <td><%= s.fc_dt %></td>
+      <td><%= s.api_survey_id  %></td>
+      <td><%= s.api_user || "Not set" %></td>
+      <td><%= s.api_user_key || "Not Set" %></td>
+      <td><%= link_to icon(:pencil), edit_survey_path(s) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
