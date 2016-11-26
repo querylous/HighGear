@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123003221) do
+ActiveRecord::Schema.define(version: 20161125181523) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "foods", force: :cascade do |t|
     t.string   "name"
@@ -24,8 +27,22 @@ ActiveRecord::Schema.define(version: 20161123003221) do
     t.integer  "sort_order"
   end
 
-  add_index "foods", ["user_id"], name: "index_foods_on_user_id"
-  add_index "foods", ["wrin"], name: "index_foods_on_wrin"
+  add_index "foods", ["user_id"], name: "index_foods_on_user_id", using: :btree
+  add_index "foods", ["wrin"], name: "index_foods_on_wrin", using: :btree
+
+  create_table "responses", force: :cascade do |t|
+    t.integer  "survey_id"
+    t.integer  "user_id"
+    t.integer  "response_id"
+    t.integer  "store"
+    t.json     "answers",     default: {}, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "responses", ["id"], name: "index_responses_on_id", using: :btree
+  add_index "responses", ["response_id"], name: "index_responses_on_response_id", using: :btree
+  add_index "responses", ["survey_id"], name: "index_responses_on_survey_id", using: :btree
 
   create_table "sales_hours", force: :cascade do |t|
     t.datetime "datetime"
@@ -51,9 +68,9 @@ ActiveRecord::Schema.define(version: 20161123003221) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "surveys", ["api_survey_id"], name: "index_surveys_on_api_survey_id"
-  add_index "surveys", ["fc_dt"], name: "index_surveys_on_fc_dt"
-  add_index "surveys", ["store"], name: "index_surveys_on_store"
+  add_index "surveys", ["api_survey_id"], name: "index_surveys_on_api_survey_id", using: :btree
+  add_index "surveys", ["fc_dt"], name: "index_surveys_on_fc_dt", using: :btree
+  add_index "surveys", ["store"], name: "index_surveys_on_store", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.integer  "emp_no"
@@ -75,7 +92,8 @@ ActiveRecord::Schema.define(version: 20161123003221) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "waste_counts", ["food_id"], name: "index_waste_counts_on_food_id"
-  add_index "waste_counts", ["user_id"], name: "index_waste_counts_on_user_id"
+  add_index "waste_counts", ["food_id"], name: "index_waste_counts_on_food_id", using: :btree
+  add_index "waste_counts", ["user_id"], name: "index_waste_counts_on_user_id", using: :btree
 
+  add_foreign_key "foods", "users"
 end

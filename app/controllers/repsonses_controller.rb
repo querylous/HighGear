@@ -1,0 +1,2 @@
+class RepsonsesController < ApplicationController
+end

@@ -22,6 +22,7 @@ gem 'bootstrap-table-rails'
 gem 'acts_as_list'
 gem 'smarter_csv'
 gem 'rest-client'
+gem 'pg'
 
 # gem 'capistrano-rails', group: :development
 
