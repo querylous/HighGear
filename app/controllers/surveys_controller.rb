@@ -35,6 +35,8 @@ class SurveysController < ApplicationController
   private
 
   def survey_params
-    params.require(:survey).permit(:store, :name, :api_survey_id, :api_user, :api_user_key, :fc_dt)
+    params.require(:survey).permit(:store, :name, :api_survey_id, 
+                                   :api_user, :api_user_key, :fc_dt,
+                                   :updateable, :questions)
   end
 end

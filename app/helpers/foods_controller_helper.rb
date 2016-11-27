@@ -42,9 +42,13 @@ module FoodsControllerHelper
   end
   
   def last_count_time
-    time = WasteCount.last.created_at
-    time = time.in_time_zone("Pacific Time (US & Canada)")
-    return time.to_s(:time)
+    if WasteCount.last.nil?
+      return "Never!"
+    else
+      time = WasteCount.last.created_at unless WasteCount.last.nil?
+      time = time.in_time_zone("Pacific Time (US & Canada)")
+      return time.to_s(:time)
+    end
   end
 
 end

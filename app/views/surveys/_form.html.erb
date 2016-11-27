@@ -1,9 +1,13 @@
 <%= form_for @survey, layout: :basic do |f| %>
   <%= f.text_field :name %>
   <%= f.select(:store, [['4453', 4453], ['11785', 11785], ['11960', 11960], ['11785', 11785]]) %>
-  <%= f.select(:fc_dt, [['FC', 'FC'], ['DT', 'DT']]) %>
-  <%= f.text_field :api_user %>
-  <%= f.text_field :api_user_key %>  
+  <%= f.select(:fc_dt, [['FC', 'FC'], ['DT', 'DT']],
+                label: 'FC/DT') %>
+  <%= f.text_field :api_user, label: 'API Username' %>
+  <%= f.text_field :api_user_key, label: 'API Key' %> 
+        
+  <%= f.check_box :updateable,
+        label: 'Update responses for this survey?' %>
 
   <%= f.submit 'Save' %>
 

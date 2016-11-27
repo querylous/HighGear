@@ -46,7 +46,7 @@ class Survey < ActiveRecord::Base
       {content_type: :json, accept: :json}
     results = JSON.parse(results)
     if options[:parse]
-      self.update_attribute(questions: results['questions'])
+      self.update_attribute(:questions, results['questions'].to_json)
 
       results['responses'].each do |r|
         response = Response.new(created_at: Time.parse(r['dateCollected']), 

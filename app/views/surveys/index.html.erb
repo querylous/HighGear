@@ -6,6 +6,7 @@
     <th>API Id</th>
     <th>API User</th>
     <th>API Passcode</th>
+    <th>Updating?</th>
     <th>Edit</th>
   </thead> 
   <tbody>
@@ -17,6 +18,7 @@
       <td><%= s.api_survey_id  %></td>
       <td><%= s.api_user || "Not set" %></td>
       <td><%= s.api_user_key || "Not Set" %></td>
+      <td><%= s.updateable %></td>
       <td><%= link_to icon(:pencil), edit_survey_path(s) %></td>
     </tr>
     <% end %>
