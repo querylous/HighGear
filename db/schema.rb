@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20161127005505) do
     t.string   "fc_dt"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.boolean  "update",        default: false
+    t.boolean  "updateable",    default: false
     t.json     "questions",     default: {}
   end
 
