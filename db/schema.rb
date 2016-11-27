@@ -64,10 +64,10 @@ ActiveRecord::Schema.define(version: 20161127005505) do
     t.string   "api_user"
     t.string   "api_user_key"
     t.string   "fc_dt"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.boolean  "update"
-    t.json     "questions"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "update",        default: false
+    t.json     "questions",     default: {}
   end
 
   add_index "surveys", ["api_survey_id"], name: "index_surveys_on_api_survey_id", using: :btree
