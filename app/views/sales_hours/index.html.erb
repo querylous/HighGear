@@ -16,6 +16,26 @@
         <br>
         <span id="today-total-waste" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
       </div>  
+      <div class="text-center today-totals">
+        <span class="alert h4">FC Satisfaction: </span>
+        <br>
+        <span id="today-fc" class="alert alert-success h4 today-totals-amount">
+          <%= Response.avg_score(
+                Survey.where(store: current_user.store_number)
+                      .find_by(fc_dt: "FC")
+                      .responses.where(created_at: (Time.now - 60.minutes)..Time.now))   %> 
+        </span>
+      </div>
+      <div class="text-center today-totals">
+        <span class="alert h4">DT Satisfaction: </span>
+        <br>
+        <span id="today-fc" class="alert alert-success h4 today-totals-amount">
+          <%= Response.avg_score(
+                Survey.where(store: current_user.store_number)
+                      .find_by(fc_dt: "DT")
+                      .responses.where(created_at: (Time.now - 60.minutes)..Time.now))   %> 
+        </span>
+       </div>
     </div>
     <div class="col-sm-4">
       <div class="text-center">

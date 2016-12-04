@@ -11,16 +11,19 @@ class Survey < ActiveRecord::Base
       {content_type: :json, accept: :json}
     results = JSON.parse(results)
     results['surveyList'].each do |r|
-      survey = Survey.new(name: r['surveyName'], api_survey_id: r['surveyId'].to_i)
-      store_number = r['surveyName'].match(/^(\d*)/) 
-      survey.store = store_number[0].to_i
-      if r['surveyName'].match(/Lobby/)
-        survey.fc_dt = 'FC'
+      unless Survey.exists?(api_survey_id: r['surveyId'])
+        survey = Survey.new(name: r['surveyName'], api_survey_id: r['surveyId'].to_i)
+        store_number = r['surveyName'].match(/^(\d*)/) 
+        survey.store = store_number[0].to_i
+        if r['surveyName'].match(/Lobby/)
+          survey.fc_dt = 'FC'
+        end
+        if r['surveyName'].match(/Drive/)
+          survey.fc_dt = 'FC'
+        end
+        survey.updateable = false
+        survey.save
       end
-      if r['surveyName'].match(/Drive/)
-        survey.fc_dt = 'FC'
-      end
-      survey.save
     end
   end
   
@@ -46,21 +49,28 @@ class Survey < ActiveRecord::Base
       {content_type: :json, accept: :json}
     results = JSON.parse(results)
     if options[:parse]
-      self.update_attribute(:questions, results['questions'].to_json)
-
-      results['responses'].each do |r|
-        response = Response.new(created_at: Time.parse(r['dateCollected']), 
-                                survey_id: self.id,
-                                user_id: 250,
-                                response_id: r['responseId'],
-                                store: self.store, 
-                                answers: r['responseValues'].to_json )
-        response.save
+      
+      unless results['responses'].nil?
+        results['responses'].each do |r|
+          unless Response.exists?(response_id: r['responseId'])
+            response = self.responses.build(
+                                        created_at: Time.parse(r['dateCollected']), 
+                                        response_id: r['responseId'],
+                                        store: self.store, 
+                                        answers: r['responseValues'].to_json )
+            response.save
+          end
+        end
       end
     end
-  
-    results
-
   end
 
+  def self.get_all_responses(options={})
+    Survey.all.each do |s|
+      if s.updateable = true
+        s.get_responses(from_date: options[:from_date], parse: true)
+      end
+    end
+  end
+  
 end

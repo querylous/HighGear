@@ -24,7 +24,7 @@ module SalesHoursHelper
       @formatted_projections.push( { :time => time, :sales => p[:sales] })
     end 
 
-    @formatted_projections.last(144).each do |p|
+    @formatted_projections.last(200).each do |p|
       unless SalesHour.exists?(:datetime => p[:time])
         hour = SalesHour.new
         hour.datetime = p[:time]
