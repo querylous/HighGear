@@ -52,7 +52,14 @@ class FoodsController < ApplicationController
   end
 
   def index
+    if current_user.admin?
+      store_number = params[:store] || current_user.store_number
+    else
+      store_number = current_user.store_number 
+    end
+    
     @foods = Food.all
+   
     if params[:created_date].nil?
       @selected_counts = WasteCount
         .where(created_at: (Time.parse("04:00"))..(Time.now.end_of_day + 3.hours))

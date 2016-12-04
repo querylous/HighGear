@@ -26,6 +26,13 @@
         <%= link_to button(icon(:sort)), '#', {id: 'turn_sort_on'} %>
         <%= form_tag(foods_path, :method => 'get') do %>
           <%= date_field :created_date, nil, value: @date.strftime("%F"), class: 'btn btn-default text-center input-date', width: '100%' %> 
+          <% if current_user.admin? %>
+            <%= select_tag(:store, 
+                  options_for_select([['4453', 4453],['11960', 11960],  
+                                      ['11785', 11785],['18056', 18056]], 
+                                        selected: params[:store] ), 
+                                     class: 'form-control') %>
+          <% end %>
           <%= submit_tag("Go") %>
         <% end %>
         <p class="text-muted">Last counted: <%= last_count_time %></p>

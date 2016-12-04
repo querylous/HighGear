@@ -38,9 +38,16 @@
        </div>
     </div>
     <div class="col-sm-4">
-      <div class="text-center">
+      <div class="text-center col-xs-8">
         <%= form_tag(sales_hours_path, :method => 'get') do %>
           <%= date_field :date, nil, value: @start_date.strftime("%F"), class: 'btn btn-default text-center input-date' %>
+          <% if current_user.admin? %>
+            <%= select_tag(:store, 
+                  options_for_select([['4453', 4453],['11960', 11960],  
+                                      ['11785', 11785],['18056', 18056]], 
+                                        selected: params[:store] ), 
+                                     class: 'form-control') %>
+          <% end %>
           <%= submit_tag("Go") %>
         <% end %>
       </div>

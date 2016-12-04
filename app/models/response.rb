@@ -15,7 +15,7 @@ class Response < ActiveRecord::Base
       manager = sales_hour.user_id unless sales_hour.nil?
 
       s.user_id = manager
-      s.save
+      s.save unless manager.nil?
      end
   end
   

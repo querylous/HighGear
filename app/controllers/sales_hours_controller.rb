@@ -4,6 +4,11 @@ class SalesHoursController < ApplicationController
 
 
   def index
+    if current_user.admin?
+      store_number = params[:store] || current_user.store_number
+    else
+      store_number = current_user.store_number 
+    end
     if params[:date].nil?
       @start_date = Time.now.beginning_of_day + 4.hours
     else
@@ -14,7 +19,7 @@ class SalesHoursController < ApplicationController
       end_date = @start_date.end_of_day + 4.hours
     end
     @sales_hours = SalesHour.where(
-      store_number: current_user.store_number,
+      store_number: store_number,
       datetime: @start_date..end_date
       )
     @sales_hours = @sales_hours.sort_by &:datetime
