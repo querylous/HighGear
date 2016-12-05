@@ -26,7 +26,7 @@ ready = function() {
   $('.sortable').sortable('disable');
   $(document).on('click', '#turn_sort_on', function(){
     $(this).attr('id', 'turn_sort_off');
-    $(this).find('button').addClass('btn-primary');
+    $(this).addClass('btn-primary');
     $('.sortable').sortable('enable',{
       stop: function(event,ui){ }
     });
@@ -35,7 +35,7 @@ ready = function() {
   $(document).on('click', '#turn_sort_off', function(){
     $('.sortable').sortable('disable');
     $(this).attr('id', 'turn_sort_on');
-    $(this).find('button').removeClass('btn-primary');
+    $(this).removeClass('btn-primary');
   });
 };
 

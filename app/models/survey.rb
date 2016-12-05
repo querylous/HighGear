@@ -31,7 +31,7 @@ class Survey < ActiveRecord::Base
     @login = {:username => self.api_user,
               :apiKey => self.api_user_key} 
     @api_url = 'https://www.quicktapsurvey.com/api/v2/'
-    from_date = (Time.now - 15*60).strftime("%F %T %z") 
+    from_date = (Time.now - 120*60).strftime("%F %T %z") 
     to_date = (Time.now).strftime("%F %T %z") 
     if options[:from_date]
       from_date = Time.parse(options[:from_date]).strftime("%F %T %z")

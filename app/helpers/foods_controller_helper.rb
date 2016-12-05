@@ -4,19 +4,19 @@ module FoodsControllerHelper
     users = User.all
     users.each do |curr_user|
       weekly_user_dollars << { curr_user.id => get_total_dollars(curr_user.id, 
-        (Time.now - 7.days)..Time.now) }
+        (Time.now - 7.days)..Time.now, current_user.store_number) }
     end
     weekly_user_dollars.sort_by! { |y| y.values }
     return weekly_user_dollars
   end
 
-  def get_total_dollars(id, time)
+  def get_total_dollars(id, time, store)
     total_dollar_cost = []
     if id != "any"
       user = User.find_by_id(id)
       selected_waste_counts = user.waste_counts.where(created_at: time)
     else
-      selected_waste_counts = WasteCount.where(created_at: time) 
+      selected_waste_counts = WasteCount.where(created_at: time, store: store) 
     end
     unique_food_ids = selected_waste_counts.uniq.pluck(:food_id)
     unique_food_ids.each do |u|

@@ -62,15 +62,15 @@ class FoodsController < ApplicationController
    
     if params[:created_date].nil?
       @selected_counts = WasteCount
-        .where(created_at: (Time.parse("04:00"))..(Time.now.end_of_day + 3.hours))
+        .where(created_at: (Time.parse("04:00"))..(Time.now.end_of_day + 3.hours), store: store_number)
       @date = Time.now
     else
       @date = Time.parse(params[:created_date].to_s) 
       @selected_counts = WasteCount
-        .where(created_at: (@date.beginning_of_day + 4.hours)..(@date.end_of_day + 3.hours))
+        .where(created_at: (@date.beginning_of_day + 4.hours)..(@date.end_of_day + 3.hours), store: store_number)
     end
     @week_counts = WasteCount
-      .where(created_at: (Time.now - 7.days)..Time.now)
+      .where(created_at: (Time.now - 7.days)..Time.now, store: store_number)
     @breakfast_completed = @foods
       .where(["food_type = ?", "Breakfast Completed"])
       .order("sort_order")

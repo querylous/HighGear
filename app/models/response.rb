@@ -20,7 +20,7 @@ class Response < ActiveRecord::Base
   end
   
   def self.avg_score(collection=nil, options={})
-    from_date = Time.now - 60.minutes
+    from_date = Time.now.beginning_of_day + 3.hours
     to_date = Time.now
     from_date = Time.parse(options[:from_date]) unless options[:from_date].nil?
     to_date = Time.parse(options[:to_date]) unless options[:to_date].nil?

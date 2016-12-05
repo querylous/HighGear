@@ -14,33 +14,39 @@
       <div class="text-center today-totals">
         <span class="alert h4">Waste: </span>
         <br>
-        <span id="today-total-waste" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars("any", (@start_date.beginning_of_day + 4.hours)..(@start_date.end_of_day + 4.hours))) %></span>
+        <span id="today-total-waste" class="alert alert-success h4 today-totals-amount"><%= humanized_money_with_symbol(get_total_dollars(
+                               "any",
+                               (@start_date.beginning_of_day + 4.hours)..
+                               (@start_date.end_of_day + 4.hours),
+                               params[:store] || current_user.store_number)) %></span>
       </div>  
       <div class="text-center today-totals">
         <span class="alert h4">FC Satisfaction: </span>
         <br>
         <span id="today-fc" class="alert alert-success h4 today-totals-amount">
           <%= Response.avg_score(
-                Survey.where(store: current_user.store_number)
+                Survey.where(store: params[:store] || current_user.store_number)
                       .find_by(fc_dt: "FC")
-                      .responses.where(created_at: (Time.now - 60.minutes)..Time.now))   %> 
+                      .responses.where(created_at: (Time.now.beginning_of_day + 3.hours)..Time.now))
+          %> 
         </span>
       </div>
       <div class="text-center today-totals">
         <span class="alert h4">DT Satisfaction: </span>
         <br>
         <span id="today-fc" class="alert alert-success h4 today-totals-amount">
-          <%= Response.avg_score(
-                Survey.where(store: current_user.store_number)
+          <%= Survey.where(store: params[:store] || current_user.store_number)
+              Response.avg_score(
+                Survey.where(store: params[:store] || current_user.store_number)
                       .find_by(fc_dt: "DT")
-                      .responses.where(created_at: (Time.now - 60.minutes)..Time.now))   %> 
+                      .responses.where(created_at: (Time.now.beginning_of_day + 3.hours)..Time.now))             %> 
         </span>
        </div>
     </div>
     <div class="col-sm-4">
-      <div class="text-center col-xs-8">
+      <div class="text-center col-xs-10 col-xs-offset-1">
         <%= form_tag(sales_hours_path, :method => 'get') do %>
-          <%= date_field :date, nil, value: @start_date.strftime("%F"), class: 'btn btn-default text-center input-date' %>
+          <%= date_field :date, nil, value: @start_date.strftime("%F"), class: 'form-control btn btn-default text-center input-date' %>
           <% if current_user.admin? %>
             <%= select_tag(:store, 
                   options_for_select([['4453', 4453],['11960', 11960],  
@@ -48,7 +54,7 @@
                                         selected: params[:store] ), 
                                      class: 'form-control') %>
           <% end %>
-          <%= submit_tag("Go") %>
+          <%= submit_tag("Go", class: 'btn btn-default') %>
         <% end %>
       </div>
     </div>

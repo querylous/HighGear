@@ -106,9 +106,10 @@ ready2 = function() {
       var count = $(this).val();
       var user_id = $('.current_user').attr('id');
       var date = $('#created_date_').val();
+      var store_number = $('#store').val();
       if( count > 0 ) {
         submit_data.waste_counts.push(
-        { "food_id": food_id, "count": count, "user_id": user_id, "date": date }
+        { "food_id": food_id, "count": count, "user_id": user_id, "date": date, "store": store_number }
       );
       }
     });

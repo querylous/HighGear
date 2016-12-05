@@ -1,13 +1,21 @@
 class WasteCountsController < ApplicationController
   def new
     if request.xhr?
+
+
       @waste_counts_json = params[:waste_counts]
       @waste_counts_json.each do |key, item|
         date = Time.parse(item['date']).strftime("%F")
         date = date + " " + Time.now.strftime("%T %:z")
         date = Time.parse(date)
-        logger.info date
+        if current_user.admin?
+          store_number = item['store'].to_i
+        else
+          store_number = current_user.store_number 
+        end             
+
         @waste_count = WasteCount.new
+        @waste_count.store = store_number 
         @waste_count.count = item['count']
         @waste_count.food_id = item['food_id']
         @waste_count.user_id = item['user_id']
