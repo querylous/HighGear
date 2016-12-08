@@ -30,6 +30,7 @@ class SurveysController < ApplicationController
 
   def show
     @survey = Survey.find(params[:id])
+    @responses = Response.where(survey_id: @survey.id).order(created_at: :desc)
   end
 
   private

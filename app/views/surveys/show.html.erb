@@ -1,0 +1,51 @@
+
+<div class="col-xs-12">
+  <h3><%= @survey.name %></h3>
+  <p class="text-muted"><%= @responses.count %> responses collected</p>
+</div>
+<% unless @survey.questions.nil? %>
+  <table class="table table-striped table-responsive">
+    <thead>
+      <th>Date collected</th>
+      <% 
+        count = 0
+        total_questions = @survey.questions.count 
+        @survey.questions.each do |q| 
+          if count == 0 || count == (total_questions - 1)
+            hidden = "" 
+          else
+            hidden = "hidden-xs" 
+          end 
+          count += 1
+      %>
+        <th class="<%= "#{hidden}" %>"><%= q['questionTitle'] %></th>
+      <% end %> 
+    </thead>
+    <tbody>
+      <% @responses.each do |r| %> 
+        <tr>
+          <td><%= r.created_at.localtime %></td>  
+          <% 
+            count = 0
+            total_questions = @survey.questions.count 
+            r.answers.each do |a| 
+              if count == 0 || count == (total_questions - 1)
+                hidden = "" 
+              else
+                hidden = "hidden-xs" 
+              end 
+              count += 1
+          %>
+            <td class="<%= hidden %>"><%= if a.is_a?(Hash)
+                      a['responseValue'] 
+                    else 
+                      a || raw("<span class=\"hidden\">no response</span>")  
+                    end
+                %>
+            </td>  
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

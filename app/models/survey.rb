@@ -28,8 +28,12 @@ class Survey < ActiveRecord::Base
   end
   
   def get_responses(options={})
-    @login = {:username => self.api_user,
-              :apiKey => self.api_user_key} 
+    if self.api_user = "" || self.api_user_key = ""
+      return "API credentials not set"
+    else
+      @login = {:username => self.api_user,
+                :apiKey => self.api_user_key} 
+    end
     @api_url = 'https://www.quicktapsurvey.com/api/v2/'
     from_date = (Time.now - 120*60).strftime("%F %T %z") 
     to_date = (Time.now).strftime("%F %T %z") 

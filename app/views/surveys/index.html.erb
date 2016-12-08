@@ -2,7 +2,7 @@
   <thead>
     <th>Survey</th>
     <th>Store</th>
-    <th>Location</th>
+    <th>Responses</th>
     <th>API Id</th>
     <th>API User</th>
     <th>API Passcode</th>
@@ -12,13 +12,13 @@
   <tbody>
     <% @surveys.each do |s| %>
     <tr>
-      <td><%= s.name %></td>
+      <td><%= link_to "#{s.name}", survey_path(s) %></td>
       <td><%= s.store %></td>
-      <td><%= s.fc_dt %></td>
+      <td><%= s.responses.count %></td>
       <td><%= s.api_survey_id  %></td>
       <td><%= s.api_user || "Not set" %></td>
       <td><%= s.api_user_key || "Not Set" %></td>
-      <td><%= s.updateable %></td>
+      <td><%= icon(:ok) unless s.updateable == false %></td>
       <td><%= link_to icon(:pencil), edit_survey_path(s) %></td>
     </tr>
     <% end %>
