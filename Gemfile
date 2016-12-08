@@ -21,7 +21,7 @@ gem 'jeditable-rails', git: 'https://github.com/afeld/jeditable-rails.git', ref:
 gem 'bootstrap-table-rails'
 gem 'acts_as_list'
 gem 'smarter_csv'
-gem 'rest-client'
+gem 'rest-client', '~> 2.0.0'
 gem 'pg'
 
 # gem 'capistrano-rails', group: :development

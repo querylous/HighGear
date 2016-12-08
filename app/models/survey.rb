@@ -56,7 +56,7 @@ class Survey < ActiveRecord::Base
 
 
     if options[:parse]
-      self.questions = results['questions']      
+      self.update_attribute(:questions, results['questions'])
       unless results['responses'].nil?
         results['responses'].each do |r|
           unless Response.exists?(response_id: r['responseId'])

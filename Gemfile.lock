@@ -218,7 +218,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.0)
   rails_stdout_logging
-  rest-client
+  rest-client (~> 2.0.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   smarter_csv
