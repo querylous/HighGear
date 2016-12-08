@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :foods
-  has_many :waste_counts, :dependent => :destroy
+  has_many :waste_counts
+  belongs_to :restaurant
+
   has_secure_password
   validates :fname, presence: true, length: { maximum: 25 }
   validates :lname, presence: true, length: { maximum: 25 }
