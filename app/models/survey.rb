@@ -19,7 +19,7 @@ class Survey < ActiveRecord::Base
           survey.fc_dt = 'FC'
         end
         if r['surveyName'].match(/Drive/)
-          survey.fc_dt = 'FC'
+          survey.fc_dt = 'DT'
         end
         survey.updateable = false
         survey.save
@@ -53,8 +53,10 @@ class Survey < ActiveRecord::Base
     results = RestClient.post url, data.to_json, 
       {content_type: :json, accept: :json}
     results = JSON.parse(results)
+
+
     if options[:parse]
-      
+      self.questions = results['questions']      
       unless results['responses'].nil?
         results['responses'].each do |r|
           unless Response.exists?(response_id: r['responseId'])
