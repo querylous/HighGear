@@ -28,7 +28,7 @@ class Survey < ActiveRecord::Base
   end
   
   def get_responses(options={})
-    if self.api_user = "" || self.api_user_key = ""
+    if self.api_user == "" || self.api_user_key == ""
       return "API credentials not set"
     else
       @login = {:username => self.api_user,
@@ -49,6 +49,7 @@ class Survey < ActiveRecord::Base
 
     url = @api_url + 'getSurveyResponses'
     data = @login.merge(api_params)
+    counter = 0
     results = RestClient.post url, data.to_json, 
       {content_type: :json, accept: :json}
     results = JSON.parse(results)
@@ -63,17 +64,32 @@ class Survey < ActiveRecord::Base
                                         store: self.store, 
                                         answers: r['responseValues'].to_json )
             response.save
+            if response.save
+              counter += 1
+            end
           end
         end
       end
     end
+ 
+    if options[:return_responses]
+      return results  
+    else
+      return "#{Time.now} -- #{counter} responses added for #{self.name}."
+    end
   end
 
   def self.get_all_responses(options={})
+    messages = []
     Survey.all.each do |s|
-      if s.updateable = true
-        s.get_responses(from_date: options[:from_date], parse: true)
+      if s.updateable == true
+        messages << s.get_responses(from_date: options[:from_date], parse: true)
+      else
+        messages << "#{Time.now} -- Not updating #{s.name}"
       end
+    end
+    messages.each do |m|
+      puts m
     end
   end
   
