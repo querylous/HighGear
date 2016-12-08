@@ -20,3 +20,6 @@
 *~
 *.swp
 *.swo
+
+# Ignore local env vars
+/config/local_env.rb
