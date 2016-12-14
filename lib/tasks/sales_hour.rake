@@ -4,7 +4,7 @@ namespace :sales_hour do
     unless Time.now.between?(Time.now.beginning_of_day, Time.now.beginning_of_day + 8.hours)
 
     Restaurant.all.each do |r|
-      if (Time.now - SalesHour.last_updated(r.store)) > 90.minutes 
+      if (Time.now - SalesHour.last_updated(r.store)) > 45.minutes 
       SalesHourAlerts.sales_hour_alerts(r.gm, SalesHour.last_updated(r.store).localtime).deliver
       else 
         puts "All caught up. Great job. Last updated at #{SalesHour.last_updated(r.store).localtime}"

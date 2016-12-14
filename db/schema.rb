@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208063454) do
+ActiveRecord::Schema.define(version: 20161214004346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +35,10 @@ ActiveRecord::Schema.define(version: 20161208063454) do
     t.integer  "user_id"
     t.integer  "response_id"
     t.integer  "store"
-    t.json     "answers",     default: {}, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.json     "answers",       default: {}, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "restaurant_id"
   end
 
   add_index "responses", ["id"], name: "index_responses_on_id", using: :btree
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20161208063454) do
     t.integer  "user_id"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
+    t.integer  "restaurant_id"
   end
 
   create_table "surveys", force: :cascade do |t|
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 20161208063454) do
     t.datetime "updated_at",                    null: false
     t.boolean  "updateable",    default: false
     t.json     "questions",     default: {}
+    t.integer  "restaurant_id"
   end
 
   add_index "surveys", ["api_survey_id"], name: "index_surveys_on_api_survey_id", using: :btree
@@ -100,9 +103,10 @@ ActiveRecord::Schema.define(version: 20161208063454) do
     t.integer  "count"
     t.integer  "food_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "store"
+    t.integer  "restaurant_id"
   end
 
   add_index "waste_counts", ["food_id"], name: "index_waste_counts_on_food_id", using: :btree
