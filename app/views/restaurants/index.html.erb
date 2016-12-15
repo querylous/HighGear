@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <th>National Number</th>
+    <th>Name</th>
+    <th>GM</th>
+    <th>Total Employees</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @restaurants.each do |r| %>  
+      <tr>
+        <td><%= link_to r.store, restaurant_path(r.id) %></td>
+        <td><%= r.name %></td>
+        <td><%= r.gm.try(:fname) || "Not Set" %></td>
+        <td><%= r.users.try(:count) %></td>
+        <td><%= link_to icon(:pencil), edit_restaurant_path(r.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

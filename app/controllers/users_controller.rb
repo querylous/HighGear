@@ -3,16 +3,17 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
 
   def new
-    if is_admin?(current_user) 
+    if current_user.gm? 
       @user = User.new 
     else
-      redirect_to root_url, notice: "Sorry, you have to be an admin." 
+      redirect_to root_url, notice: "Sorry, you have to be a GM." 
     end
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.update_attribute(:restaurant_id, Restaurant.find_by(store: @user.store_number).id)
       redirect_to @user
     else
       render 'new'
@@ -68,6 +69,7 @@ private
 
   def user_params
     params.require(:user).permit(:emp_no, :fname, :lname, :store_number,
-                                 :password, :password_confirmation, :email)
+                                 :password, :password_confirmation, :email,
+                                 :restaurant_id, :gm)
   end
 end

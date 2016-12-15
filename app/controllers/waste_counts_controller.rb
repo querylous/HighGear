@@ -20,6 +20,7 @@ class WasteCountsController < ApplicationController
         @waste_count.food_id = item['food_id']
         @waste_count.user_id = item['user_id']
         @waste_count.created_at = date 
+        @waste_count.restaurant_id = Restaurant.find_by(store: store_number).id
         @waste_count.save 
       end
       success = { :status => "ok", :message => "Success!" } 

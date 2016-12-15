@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :foods
   resources :waste_counts
   resources :surveys
+  resources :restaurants, only: [:index, :edit, :show, :update]
   get    'current_manager' => 'application#current_manager'
   resources :sales_hours
 end
